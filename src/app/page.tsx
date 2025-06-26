@@ -201,7 +201,7 @@ export default function HomePage() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
   return (
-    <div className="min-h-screen " style={{ backgroundColor: "#03090E" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#03090E" }}>
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col justify-center items-center px-4">
         <header className="absolute top-10 left-20 right-0 p-6">
@@ -442,16 +442,16 @@ export default function HomePage() {
 
       {/* Our Solution Section */}
 
-      <section className="relative  py-16 px-4 sm:px-6 lg:px-8">
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8">
         {/* Background blur circle */}
         <div className="absolute inset-0 flex justify-center items-center">
           <div
-            className="rounded-full"
+            className="rounded-full relative z-15"
             style={{
-              width: "510px",
-              height: "510px",
+              width: "420px",
+              height: "420px",
               backgroundColor: "#30BED44D",
-              filter: "blur(150px)",
+              filter: "blur(120px)",
             }}
           />
         </div>
@@ -467,20 +467,50 @@ export default function HomePage() {
           >
             Our Solution
           </h2>
-          <div className="flex flex-col md:flex-row items-center justify-center md:space-x-8 space-y-8 md:space-y-0">
-            {/* Left Column Cards */}
-            <div className="flex flex-col space-y-8">
-              <div className="bg-[#07131D] rounded-2xl p-6 w-64 text-left ">
+
+          <div className="relative flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0">
+            {/* Left Column Cards - positioned to follow skeleton contours */}
+            <div className="absolute left-0 md:left-1/4 transform md:-translate-x-full md:-translate-x-20 z-10">
+              {/* Top card - head level */}
+              <div
+                className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
+                style={{
+                  backgroundColor: "rgba(7, 19, 29, 0.7)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  top: "-260px",
+                  left: "-120px",
+                }}
+              >
                 AI-driven Avatar that evolves
                 <br />
                 with your health inputs
               </div>
-              <div className="bg-[#07131D] rounded-2xl p-6 w-64 text-left ">
+
+              {/* Middle card - torso level */}
+              <div
+                className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
+                style={{
+                  backgroundColor: "rgba(7, 19, 29, 0.7)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  top: "-70px",
+                  left: "-150px",
+                }}
+              >
                 Tailored wellness plans and
                 <br />
                 adaptive recommendations
               </div>
-              <div className="bg-[#07131D] rounded-2xl p-6 w-64 text-left ">
+
+              {/* Bottom card - lower body level */}
+              <div
+                className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
+                style={{
+                  backgroundColor: "rgba(7, 19, 29, 0.7)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  top: "120px",
+                  left: "-90px",
+                }}
+              >
                 Full ownership and optional
                 <br />
                 monetization of health data
@@ -488,23 +518,52 @@ export default function HomePage() {
             </div>
 
             {/* Center Skeleton Image */}
-            <div className="relative">
+            <div className="relative z-20">
               <Image src={skeleton} alt="Skeleton" width={300} height={600} />
             </div>
 
-            {/* Right Column Cards */}
-            <div className="flex flex-col space-y-8 ">
-              <div className="bg-[#07131D] rounded-2xl p-6 w-64 text-left ">
+            {/* Right Column Cards - positioned to follow skeleton contours */}
+            <div className="absolute right-0 md:right-1/4 transform md:translate-x-full md:translate-x-20 z-10">
+              {/* Top card - head level */}
+              <div
+                className="rounded-2xl w-[300px] p-6  text-left backdrop-blur-sm absolute"
+                style={{
+                  backgroundColor: "rgba(7, 19, 29, 0.7)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  top: "-260px",
+                  right: "-115px",
+                }}
+              >
                 AI diagnostic assistant
                 <br />
                 (MediClinIQ)
               </div>
-              <div className="bg-[#07131D] rounded-2xl p-6 w-64 text-left ">
+
+              {/* Middle card - torso level */}
+              <div
+                className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
+                style={{
+                  backgroundColor: "rgba(7, 19, 29, 0.7)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  top: "-70px",
+                  right: "-150px",
+                }}
+              >
                 Personalized treatment plans
                 <br />
                 (drugs + natural compounds)
               </div>
-              <div className="bg-[#07131D] rounded-2xl p-6 w-64 text-left">
+
+              {/* Bottom card - lower body level */}
+              <div
+                className="rounded-2xl p-6 w-[320px] text-left backdrop-blur-sm absolute"
+                style={{
+                  backgroundColor: "rgba(7, 19, 29, 0.7)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  top: "120px",
+                  right: "-110px",
+                }}
+              >
                 Exportable plans with lifestyle,
                 <br />
                 nutrition, and supplement guidance
@@ -514,7 +573,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 px-6 lg:px-8 z-5">
+      <section
+        className="py-16 px-6 lg:px-8 z-5"
+        style={{ scrollSnapType: "y mandatory" }}
+        data-tabs-section
+      >
         <div className="max-w-6xl mx-auto text-white">
           <h2
             className="text-4xl font-semibold mb-10"
@@ -528,7 +591,6 @@ export default function HomePage() {
           </h2>
           <div className="space-y-12">
             {tabs.map((tab, i) => (
-              // 1) Attach a ref to each top‐level wrapper
               <div
                 key={tab.key}
                 ref={(el) => {
@@ -536,10 +598,10 @@ export default function HomePage() {
                 }}
                 className="flex mb-1"
               >
-                {/* your left border + label */}
+                {/* Left border - dynamic height based on active state */}
                 <div
                   className={`border-l-2 transition-colors duration-500 ${
-                    active === tab.key ? "border-[#534896]" : "border-gray-600"
+                    active === tab.key ? "border-[#534896]" : "border-gray-700"
                   }`}
                 />
                 <div className="ml-6 w-full">
@@ -554,7 +616,7 @@ export default function HomePage() {
                     {/* {tab.label} */}
                   </button>
 
-                  {/* 2) The exact same collapse logic you had */}
+                  {/* Collapsible content */}
                   <div
                     className={`overflow-hidden transition-[max-height,opacity] duration-700 ease-in-out ${
                       active === tab.key
@@ -605,7 +667,6 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
-                  {/* end collapse */}
                 </div>
               </div>
             ))}
