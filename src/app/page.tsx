@@ -16,6 +16,8 @@ import earth from "../../public/earth.png";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -224,34 +226,41 @@ export default function HomePage() {
 
   const panelRefs = useRef<HTMLDivElement[]>([]);
 
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+  // useEffect(() => {
+  //   const observers: IntersectionObserver[] = [];
 
-    tabs.forEach((tab, idx) => {
-      const el = panelRefs.current[idx];
-      if (!el) return;
+  //   tabs.forEach((tab, idx) => {
+  //     const el = panelRefs.current[idx];
+  //     if (!el) return;
 
-      // Trigger when the panel crosses 60% down the viewport (for smoother dwell)
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActive(tab.key);
-          }
-        },
-        {
-          root: null,
-          rootMargin: "-60% 0px -40% 0px", // wait until top is lower on screen
-          threshold: 0,
-        }
-      );
+  //     // Trigger when the panel crosses 60% down the viewport (for smoother dwell)
+  //     const obs = new IntersectionObserver(
+  //       ([entry]) => {
+  //         if (entry.isIntersecting) {
+  //           setActive(tab.key);
+  //         }
+  //       },
+  //       {
+  //         root: null,
+  //         rootMargin: "-60% 0px -40% 0px", // wait until top is lower on screen
+  //         threshold: 0,
+  //       }
+  //     );
 
-      obs.observe(el);
-      observers.push(obs);
-    });
+  //     obs.observe(el);
+  //     observers.push(obs);
+  //   });
 
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  //   return () => observers.forEach((o) => o.disconnect());
+  // }, []);
 
+  const handleClick = (key: string, idx: number) => {
+    setActive(key);
+    // only scroll on desktop
+    if (window.innerWidth >= 768) {
+      panelRefs.current[idx]?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <div
       className="min-h-screen overflow-x-hidden"
@@ -722,7 +731,7 @@ export default function HomePage() {
           >
             Explore the Ecosystem
           </h2>
-          <div className="space-y-12">
+          <div className="space-y-12 hidden md:block">
             {tabs.map((tab, i) => (
               <div
                 key={tab.key}
@@ -739,71 +748,149 @@ export default function HomePage() {
                 />
                 <div className="ml-6 w-full">
                   <button
-                    onClick={() => setActive(tab.key)}
-                    className={`text-2xl font-semibold mb-4 block transition-colors duration-200 ${
+                    onClick={() => handleClick(tab.key, i)}
+                    className={`text-2xl font-semibold mb-4 block transition-colors duration-200 cursor-pointer ${
                       active === tab.key
                         ? "text-white"
                         : "text-gray-500 hover:text-white"
                     }`}
                   >
-                    {/* {tab.label} */}
+                    {active !== tab.key ? tab.label : ""}
                   </button>
 
-                  {/* Collapsible content */}
-                  <div
-                    className={`overflow-hidden transition-[max-height,opacity] duration-700 ease-in-out ${
-                      active === tab.key
-                        ? "max-h-[1000px] opacity-100"
-                        : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    <div className="pl-2">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Left Column */}
-                        <div>
-                          <span className="inline-block px-4 py-2 mb-4 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#112A3B]/15">
-                            {tab.badge}
-                          </span>
-                          <h3 className="text-3xl font-semibold mb-4">
-                            {tab.heading}
-                          </h3>
-                          <ul className="list-disc list-inside text-gray-300 space-y-2 mb-6">
-                            {tab.bullets.map((b, j) => (
-                              <li key={j}>{b}</li>
-                            ))}
-                          </ul>
-                          <Image
-                            src={food}
-                            alt={tab.label}
-                            width={600}
-                            height={300}
-                            className="rounded-2xl w-full h-auto"
-                          />
-                        </div>
+                  <AnimatePresence initial={false}>
+                    {active === tab.key && (
+                      <motion.div
+                        key={tab.key} // ← unique per tab!
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                        className="overflow-hidden "
+                      >
+                        <div className="pl-2">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* Left Column */}
+                            <div>
+                              <span className="inline-block px-4 py-2 mb-4 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#112A3B]/15">
+                                {tab.badge}
+                              </span>
+                              <h3 className="text-3xl font-semibold mb-4">
+                                {tab.heading}
+                              </h3>
+                              <ul className="list-disc list-inside text-gray-300 space-y-2 mb-6">
+                                {tab.bullets.map((b, j) => (
+                                  <li key={j}>{b}</li>
+                                ))}
+                              </ul>
+                              <Image
+                                src={food}
+                                alt={tab.label}
+                                width={600}
+                                height={300}
+                                className="rounded-2xl w-full h-auto"
+                              />
+                            </div>
 
-                        {/* Right Column */}
-                        <div className="border border-[#144354] rounded-2xl p-6">
-                          <ul className="space-y-4">
-                            {tab.features.map((f, k) => (
-                              <li key={k} className="flex items-start">
-                                <span className="text-2xl mr-3">{f.emoji}</span>
-                                <div>
-                                  <h4 className="font-medium text-white">
-                                    {f.title}
-                                  </h4>
-                                  <p className="text-gray-300">{f.text}</p>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
+                            {/* Right Column */}
+                            <div className="border border-[#144354] rounded-2xl p-6">
+                              <ul className="space-y-4">
+                                {tab.features.map((f, k) => (
+                                  <li key={k} className="flex items-start">
+                                    <span className="text-2xl mr-3">
+                                      {f.emoji}
+                                    </span>
+                                    <div>
+                                      <h4 className="font-medium text-white">
+                                        {f.title}
+                                      </h4>
+                                      <p className="text-gray-300">{f.text}</p>
+                                    </div>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
+                      </motion.div>
+                    )}
+                    {/* </div> */}
+                  </AnimatePresence>
                 </div>
               </div>
             ))}
           </div>
+
+          <section className="block md:hidden py-6 px-2 bg-[#03090E]">
+            {/* 1) Horizontal tab list */}
+            <div className="overflow-x-auto whitespace-nowrap pb-2 -mx-4 px-4">
+              {tabs.map((tab, i) => (
+                <button
+                  key={tab.key}
+                  onClick={() => handleClick(tab.key, i)}
+                  className={`
+          inline-block px-3 pb-1 mr-1
+          text-sm font-medium
+          border-b-2
+          mb-5
+          ${
+            active === tab.key
+              ? "border-[#534896] text-white"
+              : "border-gray-700 text-gray-500 hover:text-white hover:border-gray-500"
+          }
+        `}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* 2) Active tab content */}
+            <div className="overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out">
+              <div className="max-w-none">
+                {/* replicate the same grid/content you have for one panel: */}
+                {tabs
+                  .filter((tab) => tab.key === active)
+                  .map((tab) => (
+                    <div key={tab.key} className="space-y-4">
+                      <span className="inline-block px-3 py-1 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#112A3B]/15">
+                        {tab.badge}
+                      </span>
+                      <h3 className="text-2xl font-semibold text-white">
+                        {tab.heading}
+                      </h3>
+                      <ul className="list-disc list-inside text-gray-300 space-y-1">
+                        {tab.bullets.map((b, j) => (
+                          <li key={j}>{b}</li>
+                        ))}
+                      </ul>
+                      <Image
+                        src={food}
+                        alt={tab.label}
+                        width={600}
+                        height={300}
+                        className="rounded-2xl w-full h-auto"
+                      />
+                      <div className="border border-[#144354] rounded-2xl p-4">
+                        <ul className="space-y-3">
+                          {tab.features.map((f, k) => (
+                            <li key={k} className="flex items-start">
+                              <span className="text-xl mr-2">{f.emoji}</span>
+                              <div>
+                                <h4 className="font-medium text-white">
+                                  {f.title}
+                                </h4>
+                                <p className="text-gray-300">{f.text}</p>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </section>
         </div>
       </section>
 
