@@ -16,9 +16,23 @@ import earth from "../../public/earth.png";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    function onResize() {
+      setIsMobile(window.innerWidth < breakpoint);
+    }
+    window.addEventListener("resize", onResize);
+    onResize(); // init
+    return () => window.removeEventListener("resize", onResize);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 export default function HomePage() {
   // const [active, setActive] = useState("nutri");
   const [isOpen, setIsOpen] = useState(false);
+  const isMobile = useIsMobile(768);
 
   // Team members data
   const team = [
@@ -46,6 +60,11 @@ export default function HomePage() {
       name: "Viktor Uzunov",
       role: "Advisor, Web3 Strategy",
       desc: "Blockchain veteran and smart contract advisor. Brings experience from DeFi, token architecture, and DAO governance, ensuring Avataris AI’s Web3 stack is scalable and secure.",
+    },
+    {
+      name: "Anita Permata Sari",
+      role: "KOL & Digital Communications Strategist",
+      desc: "Actively leading influencer and marketing strategies since 2019, with a foundation as a TV Host, actress and digital creator since2014. Specializes in building brand value through KOL management and bridging brands with impactful voices to drive growth and engagement.",
     },
   ];
 
@@ -169,6 +188,38 @@ export default function HomePage() {
       ],
     },
   ];
+
+  const cyanSize = isMobile ? 200 : 500;
+  const purpleSize = isMobile ? 240 : 800;
+  const cyanTop = isMobile ? "90%" : "85%";
+  const purpleTop = isMobile ? "95%" : "90%";
+
+  const cyanCircle: React.CSSProperties = {
+    position: "absolute",
+    top: cyanTop,
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: `${cyanSize}px`,
+    height: `${cyanSize}px`,
+    backgroundColor: "#1BD1DB",
+    filter: "blur(3rem)",
+    opacity: 0.5,
+    borderRadius: "50%",
+  };
+
+  const purpleCircle: React.CSSProperties = {
+    position: "absolute",
+    top: purpleTop,
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: `${purpleSize}px`,
+    height: `${purpleSize}px`,
+    backgroundColor: "#534896",
+    filter: "blur(3rem)",
+    opacity: 0.5,
+    borderRadius: "50%",
+  };
+
   const [active, setActive] = useState(tabs[0].key);
 
   const panelRefs = useRef<HTMLDivElement[]>([]);
@@ -200,152 +251,114 @@ export default function HomePage() {
 
     return () => observers.forEach((o) => o.disconnect());
   }, []);
+
   return (
     <div
       className="min-h-screen overflow-x-hidden"
       style={{ backgroundColor: "#03090E" }}
     >
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-center items-center px-4">
-        <header className="absolute top-10 left-20 right-0 p-6">
-          <div className="flex items-center">
-            <Image src={logoavatarise} alt="logo" />
+      <section className="relative min-h-screen flex flex-col justify-center items-center px-4 overflow-x-hidden bg-[#03090E]">
+        {/* header */}
+        <header className="absolute top-6 left-4 right-4 sm:left-10 sm:right-10 p-4 sm:p-6">
+          <div className="flex items-center justify-center sm:justify-start">
+            <Image src={logoavatarise} alt="logo" className="w-24 sm:w-32" />
           </div>
         </header>
 
-        <section className="relative flex flex-col items-center justify-center h-screen z-10 mb-3">
-          <div
-            className="rounded-full  hidden sm:flex absolute"
-            style={{
-              width: "800px",
-              height: "800px",
-              border: "1px solid gray",
-              opacity: 0.1,
-            }}
-          />
-          <div
-            className="rounded-full hidden sm:flex absolute"
-            style={{
-              width: "600px",
-              height: "600px",
-              border: "1px dashed gray",
-              opacity: 0.15,
-            }}
-          />
-          <div
-            className="rounded-full hidden sm:block absolute"
-            style={{
-              width: "300px",
-              height: "300px",
-              border: "1px solid #FFFFFF",
-              opacity: 0.2,
-            }}
-          />
+        {/* decorative circles (only on md+) */}
+        {/* <div className="hidden md:block absolute rounded-full w-[800px] h-[800px] border border-gray-500 opacity-10" />
+        <div className="hidden md:block absolute rounded-full w-[600px] h-[600px] border-2 border-dashed-gray-400 opacity-15" />
+        <div className="hidden md:block absolute rounded-full w-[300px] h-[300px] border border-white opacity-20" />
+        <div className="hidden md:block absolute rounded-full w-[734px] h-[734px] bg-[#534896] filter blur-[300px]" />
+        <div className="hidden md:block absolute rounded-full w-[224px] h-[224px] bg-[#1BD1DB] filter blur-[200px]" /> */}
 
-          <div
-            className="rounded-full  hidden sm:flex absolute"
-            style={{
-              width: "734px",
-              height: "734px",
-              backgroundColor: "#534896",
-              filter: "blur(300px)",
-            }}
-          />
+        <div
+          className="absolute rounded-full border border-gray-500 opacity-10
+               w-32 h-32    /* mobile */
+               sm:w-48 sm:h-48  /* ≥640px */
+               md:w-[800px] md:h-[800px] /* ≥768px and up */"
+        />
+        <div
+          className="absolute rounded-full border-2 border-dashed-gray-400 opacity-15
+               w-24 h-24
+               sm:w-36 sm:h-36
+               md:w-[600px] md:h-[600px]"
+        />
+        <div
+          className="absolute rounded-full border border-white opacity-20
+               w-16 h-16
+               sm:w-24 sm:h-24
+               md:w-[300px] md:h-[300px]"
+        />
 
-          <div
-            className="rounded-full hidden sm:flex absolute"
-            style={{
-              width: "224px",
-              height: "224px",
-              backgroundColor: "#1BD1DB",
-              filter: "blur(200px)",
-            }}
-          />
+        <div
+          className="absolute rounded-full bg-[#534896] filter blur-[100px] opacity-50
+               w-40 h-40
+               sm:w-64 sm:h-64
+               md:w-[734px] md:h-[734px]"
+        />
+        <div
+          className="absolute rounded-full bg-[#1BD1DB] filter blur-[60px] opacity-50
+               w-20 h-20
+               sm:w-32 sm:h-32
+               md:w-[224px] md:h-[224px]"
+        />
 
-          {/* <div className="relative text-center max-w-6xl mx-auto px-4"> */}
-          <div className="relative text-center max-w-6xl mx-auto px-4 opacity-0 animate-fade-in-up">
-            <div className="mb-8">
-              <span className="inline-block px-6 py-2 bg-[#112A3B4D] backdrop-blur-sm rounded-full text-white/80 text-sm border border-white/20">
-                A New Era of Intelligence in Medicine
-              </span>
-            </div>
+        {/* main content */}
+        <div className="relative text-center max-w-xl sm:max-w-2xl mx-auto px-4 sm:px-6 z-10 animate-fade-in-up">
+          <span className="inline-block px-4 py-1 sm:px-6 sm:py-2 bg-[#112A3B4D] backdrop-blur-sm rounded-full text-white/80 text-xs sm:text-sm border border-white/20 mb-4">
+            A New Era of Intelligence in Medicine
+          </span>
 
-            <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 leading-tight">
-              Your Health. Your Data.
-              <br />
-              <span
-                className="text-transparent bg-clip-text"
-                style={{
-                  background:
-                    "linear-gradient(180deg, #FFFFFF 54.17%, #71AECE 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                Your Avatar.
-              </span>
-            </h1>
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-3 leading-tight">
+            Your Health. Your Data.
+            <br />
+            <span
+              className="text-transparent bg-clip-text"
+              style={{
+                background:
+                  "linear-gradient(180deg, #FFFFFF 54.17%, #71AECE 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Your Avatar.
+            </span>
+          </h1>
 
-            <p className="text-white/60 text-lg mb-12 max-w-md mx-auto">
-              Innovating tech for your personal wellbeing
-            </p>
+          <p className="text-white/60 text-base sm:text-lg mb-8 max-w-lg mx-auto">
+            Innovating tech for your personal wellbeing
+          </p>
 
-            <button className="cursor-pointer bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-300 transform">
-              Join Now
-            </button>
+          <button className="bg-white text-gray-900 px-6 py-2 sm:px-8 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300">
+            Join Now
+          </button>
+        </div>
+
+        {/* trust logos */}
+        <div className="absolute bottom-8 left-0 right-0 px-4">
+          <p className="text-center text-white/80 text-xs sm:text-sm mb-10">
+            Trusted by leading biotech companies worldwide
+          </p>
+          <div className="flex w-[70%] m-auto flex-wrap justify-center sm:justify-between items-center gap-4 sm:gap-8 opacity-60">
+            {[photoshelter, kopi, flatfile, ailabs, sales].map((Logo, i) => (
+              <Image
+                key={i}
+                src={Logo}
+                alt=""
+                width={100}
+                height={32}
+                className="object-contain"
+              />
+            ))}
           </div>
-
-          <div className="absolute bottom-12  left-0 right-0">
-            <div className="text-center">
-              <p className="text-white/80 text-sm mb-9">
-                Trusted by leading biotech companies worldwide
-              </p>
-              <div className="flex justify-between items-center space-x-12 opacity-60">
-                <Image
-                  src={photoshelter}
-                  alt="PhotoShelter"
-                  width={120}
-                  height={40}
-                  className="object-contain"
-                />
-                <Image
-                  src={kopi}
-                  alt="copy.ai"
-                  width={120}
-                  height={40}
-                  className="object-contain"
-                />
-                <Image
-                  src={flatfile}
-                  alt="Flatfile"
-                  width={120}
-                  height={40}
-                  className="object-contain"
-                />
-                <Image
-                  src={ailabs}
-                  alt="AI21labs"
-                  width={120}
-                  height={40}
-                  className="object-contain"
-                />
-                <Image
-                  src={sales}
-                  alt="SALESHOOP"
-                  width={120}
-                  height={40}
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+        </div>
       </section>
 
       {/* Mission Section */}
 
       <section
-        className="relative hidden sm:block py-16 px-4 sm:px-6 lg:px-8 z-5"
+        className="relative hidden sm:block py-16 px-4 sm:px-6 lg:px-8 z-5 mt-10"
         style={{ backgroundColor: "#03090E", height: "600px" }}
       >
         <div
@@ -397,7 +410,6 @@ export default function HomePage() {
           className="max-w-sm mx-auto bg-[#011D35] rounded-2xl p-6 flex flex-col justify-between"
           style={{ minHeight: "380px" }}
         >
-          {/* Text */}
           <h2 className="text-white text-2xl leading-snug z-20 relative">
             Our mission is to bridge the gap between innovation and
             accessibility — using artificial intelligence, blockchain, and{" "}
@@ -414,15 +426,22 @@ export default function HomePage() {
             </span>
           </h2>
 
-          {/* Image */}
-          <div className="flex justify-end">
+          <div className="flex ">
             <Image
               src={AIModel}
               alt="AI Model"
               width={240}
               height={240}
               className="w-56 h-56 object-contain relative"
-              style={{ marginTop: "-4.5rem" }} /* pull it up */
+              style={{
+                // marginTop: "-4rem",
+                // marginLeft: "180px",
+                // marginBottom: "-22px",
+
+                marginTop: "-15%",
+                marginLeft: "55%",
+                marginBottom: "-7%",
+              }}
               priority
             />
           </div>
@@ -887,8 +906,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-slate-950 h-[800px]">
-        {/* 1) Full-bleed Earth */}
+      {/* <section className="relative overflow-hidden bg-slate-950 h-[800px]">
         <div className="absolute inset-0">
           <Image
             src={earth}
@@ -899,7 +917,7 @@ export default function HomePage() {
           />
         </div>
 
-        {/* 2) Cyan blur top-left */}
+   
         <div
           className="
           absolute top-0 left-1/4
@@ -910,7 +928,7 @@ export default function HomePage() {
         "
         />
 
-        {/* 3) Purple blur bottom-right */}
+
         <div
           className="
           absolute bottom-0 right-1/3
@@ -921,12 +939,84 @@ export default function HomePage() {
         "
         />
 
-        {/* 4) Centered headline */}
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
             Join Us in Shaping the Future of
             <br />
             <span className="bg-gradient-to-r from-white to-[#1BD1DB] bg-clip-text text-transparent">
+              Intelligence in Medicine
+            </span>
+          </h2>
+        </div>
+      </section> */}
+
+      <section
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          backgroundColor: "#0f172a",
+          height: "800px",
+        }}
+      >
+        {/* earth */}
+        <div style={{ position: "absolute", inset: 0 }}>
+          {/* <Image
+            src={earth}
+            alt="Earth from space"
+            fill
+            className="object-cover object-center"
+            priority
+          /> */}
+          <Image
+            src={earth}
+            alt="Earth from space"
+            fill
+            priority
+            className="
+        object-cover
+        object-top   /* mobile: focus on the top of the image */
+        sm:object-center  /* tablet+ center it again */
+      "
+          />
+        </div>
+
+        {/* your two circles */}
+        <div style={cyanCircle} className="rounded-full pointer-events-none" />
+        <div
+          style={purpleCircle}
+          className="rounded-full pointer-events-none"
+        />
+
+        {/* headline */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 10,
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            padding: "0 1rem",
+          }}
+        >
+          <h2
+            style={{
+              color: "white",
+              fontSize: "3rem",
+              lineHeight: 1.2,
+              maxWidth: "90%",
+            }}
+          >
+            Join Us in Shaping the Future of
+            <br />
+            <span
+              style={{
+                background: "linear-gradient(90deg, #ffffff, #1BD1DB)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
               Intelligence in Medicine
             </span>
           </h2>
@@ -1039,7 +1129,7 @@ export default function HomePage() {
                   Privacy Policy
                 </Link>
                 <Link
-                  href="/terms"
+                  href="/tearms"
                   className="hover:text-white transition-colors"
                 >
                   Terms of Service
@@ -1081,7 +1171,7 @@ export default function HomePage() {
                   Privacy Policy
                 </Link>
                 <Link
-                  href="/terms"
+                  href="/tearms"
                   className="hover:text-white transition-colors"
                 >
                   Terms of Service
