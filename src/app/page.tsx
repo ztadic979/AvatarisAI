@@ -13,11 +13,13 @@ import logoavatarise from "../../public/logoavatarise.png";
 import phone from "../../public/phone.png";
 import DNK from "../../public/DNK.png";
 import earth from "../../public/earth.png";
+import hands from "../../public/hands.png";
+import strategy from "../../public/strategy.png";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { motion, AnimatePresence } from "framer-motion";
-// test
+
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -77,6 +79,7 @@ export default function HomePage() {
       label: "NutriSync",
       badge: "The AI-Driven Wellness App for the World",
       heading: "NutriSync",
+      image: food,
       bullets: [
         "Custom wellness plans based on real inputs (not just user guesses)",
         "AI and incentives keep users engaged and progressing",
@@ -119,6 +122,7 @@ export default function HomePage() {
     {
       key: "medi",
       label: "MediClinIQ",
+      image: strategy,
       badge: "AI Diagnostics for Real-World Clinics",
       heading: "MediClinIQ",
       bullets: [
@@ -158,6 +162,7 @@ export default function HomePage() {
     {
       key: "strategic",
       label: "Strategic Projects",
+      image: hands,
       badge: "Strategic Integrations, Licensing & Global Access",
       heading: "Strategic Projects",
       bullets: [
@@ -226,34 +231,6 @@ export default function HomePage() {
 
   const panelRefs = useRef<HTMLDivElement[]>([]);
 
-  // useEffect(() => {
-  //   const observers: IntersectionObserver[] = [];
-
-  //   tabs.forEach((tab, idx) => {
-  //     const el = panelRefs.current[idx];
-  //     if (!el) return;
-
-  //     // Trigger when the panel crosses 60% down the viewport (for smoother dwell)
-  //     const obs = new IntersectionObserver(
-  //       ([entry]) => {
-  //         if (entry.isIntersecting) {
-  //           setActive(tab.key);
-  //         }
-  //       },
-  //       {
-  //         root: null,
-  //         rootMargin: "-60% 0px -40% 0px", // wait until top is lower on screen
-  //         threshold: 0,
-  //       }
-  //     );
-
-  //     obs.observe(el);
-  //     observers.push(obs);
-  //   });
-
-  //   return () => observers.forEach((o) => o.disconnect());
-  // }, []);
-
   const handleClick = (key: string, idx: number) => {
     setActive(key);
     // only scroll on desktop
@@ -274,43 +251,37 @@ export default function HomePage() {
           </div>
         </header>
 
-        {/* decorative circles (only on md+) */}
-        {/* <div className="hidden md:block absolute rounded-full w-[800px] h-[800px] border border-gray-500 opacity-10" />
-        <div className="hidden md:block absolute rounded-full w-[600px] h-[600px] border-2 border-dashed-gray-400 opacity-15" />
-        <div className="hidden md:block absolute rounded-full w-[300px] h-[300px] border border-white opacity-20" />
-        <div className="hidden md:block absolute rounded-full w-[734px] h-[734px] bg-[#534896] filter blur-[300px]" />
-        <div className="hidden md:block absolute rounded-full w-[224px] h-[224px] bg-[#1BD1DB] filter blur-[200px]" /> */}
-
         <div
           className="absolute rounded-full border border-gray-500 opacity-10
-               w-32 h-32    /* mobile */
+               w-[300px] h-[300px]    /* mobile */
                sm:w-48 sm:h-48  /* ≥640px */
                md:w-[800px] md:h-[800px] /* ≥768px and up */"
         />
         <div
-          className="absolute rounded-full border-2 border-dashed-gray-400 opacity-15
-               w-24 h-24
+          className="absolute rounded-full border-2 border-gray-400 opacity-10 border-dashed
+                w-[200px] h-[200px]  
                sm:w-36 sm:h-36
                md:w-[600px] md:h-[600px]"
         />
         <div
-          className="absolute rounded-full border border-white opacity-20
-               w-16 h-16
+          className="absolute rounded-full border border-white opacity-10
+           
+                 w-[140px] h-[140px]  
                sm:w-24 sm:h-24
                md:w-[300px] md:h-[300px]"
         />
 
         <div
-          className="absolute rounded-full bg-[#534896] filter blur-[100px] opacity-50
-               w-40 h-40
+          className="absolute rounded-full bg-[#534896] filter blur-[120px] opacity-50
+               w-90 h-90
                sm:w-64 sm:h-64
-               md:w-[734px] md:h-[734px]"
+               md:w-[850px] md:h-[850px]"
         />
         <div
-          className="absolute rounded-full bg-[#1BD1DB] filter blur-[60px] opacity-50
-               w-20 h-20
+          className="absolute rounded-full bg-[#1BD1DB] filter blur-[90px] opacity-50
+               w-40 h-40
                sm:w-32 sm:h-32
-               md:w-[224px] md:h-[224px]"
+               md:w-[350px] md:h-[350px]"
         />
 
         {/* main content */}
@@ -319,7 +290,7 @@ export default function HomePage() {
             A New Era of Intelligence in Medicine
           </span>
 
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-3 leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-5xl font-bold text-white mb-3 leading-tight">
             Your Health. Your Data.
             <br />
             <span
@@ -339,8 +310,8 @@ export default function HomePage() {
             Innovating tech for your personal wellbeing
           </p>
 
-          <button className="bg-white text-gray-900 px-6 py-2 sm:px-8 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300">
-            Join Now
+          <button className="bg-white cursor-pointer text-gray-900 px-6 py-2 sm:px-8 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300">
+            Contact Us
           </button>
         </div>
 
@@ -380,12 +351,6 @@ export default function HomePage() {
               accessibility — using artificial intelligence, blockchain, and{" "}
               <span
                 className="text-transparent bg-clip-text"
-                // style={{
-                //   background:
-                //     "linear-gradient(180deg, #FFFFFF 54.17%, #71AECE 100%)",
-                //   WebkitBackgroundClip: "text",
-                //   WebkitTextFillColor: "transparent",
-                // }}
                 style={{
                   background:
                     "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
@@ -443,10 +408,6 @@ export default function HomePage() {
               height={240}
               className="w-56 h-56 object-contain relative"
               style={{
-                // marginTop: "-4rem",
-                // marginLeft: "180px",
-                // marginBottom: "-22px",
-
                 marginTop: "-15%",
                 marginLeft: "55%",
                 marginBottom: "-7%",
@@ -459,7 +420,7 @@ export default function HomePage() {
 
       <section className="bg-[#03090E] py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-white">
-          <h2 className="text-4xl font-semibold mb-12">
+          <h2 className="text-4xl font-normal mb-12">
             Why “Healthy” Advice
             <br />
             <span
@@ -508,7 +469,7 @@ export default function HomePage() {
 
       <section className="relative py-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 flex justify-center items-center">
-          <div //dodaj ovde manji blur
+          <div
             className="rounded-full hidden sm:flex relative z-15"
             style={{
               width: "420px",
@@ -517,11 +478,21 @@ export default function HomePage() {
               filter: "blur(120px)",
             }}
           />
+
+          <div
+            className="block md:hidden rounded-full relative z-15"
+            style={{
+              width: "220px",
+              height: "220px",
+              backgroundColor: "#30BED44D",
+              filter: "blur(120px)",
+            }}
+          />
         </div>
 
         <div className="relative max-w-6xl mx-auto text-center text-white">
           <h2
-            className="text-4xl font-semibold mb-12"
+            className="text-4xl font-normal mb-12"
             style={{
               background: "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
               WebkitBackgroundClip: "text",
@@ -532,7 +503,7 @@ export default function HomePage() {
           </h2>
 
           {/* Mobile view */}
-          <div className="block md:hidden relative min-h-[600px]">
+          <div className="block md:hidden relative min-h-[550px]">
             {/* Skeleton image */}
             <div className="flex justify-center">
               <Image src={skeleton} alt="Skeleton" width={220} height={440} />
@@ -716,13 +687,13 @@ export default function HomePage() {
       </section>
 
       <section
-        className="py-16 px-6 lg:px-8 z-5"
+        className="py-1 sm:py-16 px-6 lg:px-8 z-5"
         style={{ scrollSnapType: "y mandatory" }}
         data-tabs-section
       >
         <div className="max-w-6xl mx-auto text-white">
           <h2
-            className="text-4xl font-semibold mb-10"
+            className="text-4xl font-normal mb-10"
             style={{
               background: "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
               WebkitBackgroundClip: "text",
@@ -784,7 +755,7 @@ export default function HomePage() {
                                 ))}
                               </ul>
                               <Image
-                                src={food}
+                                src={tab.image}
                                 alt={tab.label}
                                 width={600}
                                 height={300}
@@ -865,7 +836,7 @@ export default function HomePage() {
                         ))}
                       </ul>
                       <Image
-                        src={food}
+                        src={tab.image}
                         alt={tab.label}
                         width={600}
                         height={300}
@@ -913,37 +884,39 @@ export default function HomePage() {
 
         {/* ──────────────── Your Main Content ──────────────── */}
         <div className="relative z-10 max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Column */}
-            <div className="space-y-8">
-              <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">
-                M1 Super App
-              </h2>
-              <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-                Central Command for the
-                <br />
-                <span
-                  style={{
-                    background:
-                      "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Avataris AI Ecosystem
-                </span>
-              </h3>
-            </div>
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid lg:grid-cols-2 gap-4 items-center">
+              {/* Left */}
+              <div className="space-y-6  lg:ml-0">
+                <h2 className="text-5xl md:text-6xl font-light text-white leading-tight">
+                  M1 Super App
+                </h2>
+                <h3 className="text-3xl md:text-4xl font-light text-white leading-tight">
+                  Central Command for the
+                  <br />
+                  <span
+                    style={{
+                      background:
+                        "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    Avataris AI Ecosystem
+                  </span>
+                </h3>
+              </div>
 
-            {/* Right Column */}
-            <div className="flex justify-center lg:justify-end">
-              <Image
-                src={phone}
-                alt="M1 Super App phone"
-                width={350}
-                height={700}
-                className="relative z-20"
-              />
+              {/* Right */}
+              <div className="flex justify-center lg:justify-start">
+                <Image
+                  src={phone}
+                  alt="M1 Super App phone"
+                  width={300}
+                  height={600}
+                  className="relative z-20"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -951,7 +924,7 @@ export default function HomePage() {
 
       <section className=" py-16 px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center text-white">
-          <h2 className="text-4xl font-semibold">Meet the Team Driving</h2>
+          <h2 className="text-4xl font-normal">Meet the Team Driving</h2>
           <h3
             className="text-3xl mb-12"
             style={{
@@ -993,50 +966,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* <section className="relative overflow-hidden bg-slate-950 h-[800px]">
-        <div className="absolute inset-0">
-          <Image
-            src={earth}
-            alt="Earth from space"
-            fill
-            className="object-cover object-center"
-            priority
-          />
-        </div>
-
-   
-        <div
-          className="
-          absolute top-0 left-1/4
-          w-72 h-72
-          bg-[#1BD1DB] rounded-full
-          filter blur-3xl
-          opacity-50
-        "
-        />
-
-
-        <div
-          className="
-          absolute bottom-0 right-1/3
-          w-96 h-96
-          bg-[#534896] rounded-full
-          filter blur-3xl
-          opacity-50
-        "
-        />
-
-        <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-            Join Us in Shaping the Future of
-            <br />
-            <span className="bg-gradient-to-r from-white to-[#1BD1DB] bg-clip-text text-transparent">
-              Intelligence in Medicine
-            </span>
-          </h2>
-        </div>
-      </section> */}
-
       <section
         style={{
           position: "relative",
@@ -1047,13 +976,6 @@ export default function HomePage() {
       >
         {/* earth */}
         <div style={{ position: "absolute", inset: 0 }}>
-          {/* <Image
-            src={earth}
-            alt="Earth from space"
-            fill
-            className="object-cover object-center"
-            priority
-          /> */}
           <Image
             src={earth}
             alt="Earth from space"
