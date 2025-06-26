@@ -1138,7 +1138,7 @@ export default function HomePage() {
                   Privacy Policy
                 </Link>
                 <Link
-                  href="/tearms"
+                  href="/terms"
                   className="hover:text-white transition-colors"
                 >
                   Terms of Service
@@ -1180,7 +1180,7 @@ export default function HomePage() {
                   Privacy Policy
                 </Link>
                 <Link
-                  href="/tearms"
+                  href="/terms"
                   className="hover:text-white transition-colors"
                 >
                   Terms of Service
