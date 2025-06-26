@@ -201,7 +201,10 @@ export default function HomePage() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#03090E" }}>
+    <div
+      className="min-h-screen overflow-x-hidden"
+      style={{ backgroundColor: "#03090E" }}
+    >
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col justify-center items-center px-4">
         <header className="absolute top-10 left-20 right-0 p-6">
