@@ -28,12 +28,12 @@ export default function HomePage() {
       desc: "Visionary entrepreneur with a background in public markets, blockchain, and AI-integrated healthcare. Leads strategy, governance, and capital structuring across the Avataris Ecosystem.",
     },
     {
-      name: "Dr. Edwin Gershom, PhD",
+      name: "Edwin Gershom, PhD",
       role: "VP, Strategic Alliances",
       desc: "Health sciences expert with extensive experience in clinical business development. Skilled public speaker and global partnership builder, leading commercial alignment and integrative product strategy.",
     },
     {
-      name: "Dr. Sazzad Hossain",
+      name: "Dr. Sazzad Hossain, PhD",
       role: "Chief Science Officer",
       desc: "Former Chief Scientist at a publicly listed Canadian tech firm. Specialist in AI model training, algorithmic validation, and translational research in healthcare and drug response prediction.",
     },
@@ -212,7 +212,7 @@ export default function HomePage() {
 
         <section className="relative flex flex-col items-center justify-center h-screen z-10 mb-3">
           <div
-            className="rounded-full absolute"
+            className="rounded-full  hidden sm:flex absolute"
             style={{
               width: "800px",
               height: "800px",
@@ -221,7 +221,7 @@ export default function HomePage() {
             }}
           />
           <div
-            className="rounded-full absolute"
+            className="rounded-full hidden sm:flex absolute"
             style={{
               width: "600px",
               height: "600px",
@@ -230,7 +230,7 @@ export default function HomePage() {
             }}
           />
           <div
-            className="rounded-full absolute"
+            className="rounded-full hidden sm:block absolute"
             style={{
               width: "300px",
               height: "300px",
@@ -240,7 +240,7 @@ export default function HomePage() {
           />
 
           <div
-            className="rounded-full absolute"
+            className="rounded-full  hidden sm:flex absolute"
             style={{
               width: "734px",
               height: "734px",
@@ -250,7 +250,7 @@ export default function HomePage() {
           />
 
           <div
-            className="rounded-full absolute"
+            className="rounded-full hidden sm:flex absolute"
             style={{
               width: "224px",
               height: "224px",
@@ -342,14 +342,13 @@ export default function HomePage() {
       {/* Mission Section */}
 
       <section
-        className="relative py-16 px-4 sm:px-6 lg:px-8 z-5"
+        className="relative hidden sm:block py-16 px-4 sm:px-6 lg:px-8 z-5"
         style={{ backgroundColor: "#03090E", height: "600px" }}
       >
         <div
           className="max-w-6xl mx-auto rounded-2xl h-[400px] p-8 flex flex-col md:flex-row items-center relative"
           style={{ backgroundColor: "#011D35" }}
         >
-          {/* Text Content */}
           <div className="md:w-1/2 text-white">
             <h2 className="text-2xl md:text-4xl lg:text-[35px] font-normal leading-tight">
               Our mission is to bridge the gap between innovation and
@@ -374,9 +373,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          {/* Image Container */}
           <div className="md:w-1/2 relative mt-8 md:mt-0">
-            {/* The image is pulled up above the card - responsive positioning */}
             <div className="absolute right-[-20px] md:right-[-95px] -top-32 md:-top-96 lg:-top-[19rem]">
               <Image
                 src={AIModel}
@@ -387,6 +384,44 @@ export default function HomePage() {
                 priority
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* mobile-only */}
+      <section className="block md:hidden px-4 py-8 bg-[#03090E]">
+        <div
+          className="max-w-sm mx-auto bg-[#011D35] rounded-2xl p-6 flex flex-col justify-between"
+          style={{ minHeight: "380px" }}
+        >
+          {/* Text */}
+          <h2 className="text-white text-2xl leading-snug z-20 relative">
+            Our mission is to bridge the gap between innovation and
+            accessibility — using artificial intelligence, blockchain, and{" "}
+            <span
+              className="text-transparent bg-clip-text"
+              style={{
+                background:
+                  "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              biology to personalize health and wellness at scale.
+            </span>
+          </h2>
+
+          {/* Image */}
+          <div className="flex justify-end">
+            <Image
+              src={AIModel}
+              alt="AI Model"
+              width={240}
+              height={240}
+              className="w-56 h-56 object-contain relative"
+              style={{ marginTop: "-4.5rem" }} /* pull it up */
+              priority
+            />
           </div>
         </div>
       </section>
@@ -410,7 +445,6 @@ export default function HomePage() {
           </h2>
 
           <div className="flex flex-col md:flex-row gap-8">
-            {/* Individuals Card */}
             <div className="flex-1 border border-[#534896] rounded-2xl p-6">
               <span className="inline-block bg-[#112A3B] px-4 py-1 rounded-full text-white text-sm mb-4">
                 For Individuals
@@ -425,8 +459,7 @@ export default function HomePage() {
               </ul>
             </div>
 
-            {/* Practitioners Card */}
-            <div className="flex-1 border border-[#534896] rounded-2xl p-6">
+            <div className="flex-1 border border-[#534896] rounded-2xl p-6 ">
               <span className="inline-block bg-[#112A3B] px-4 py-1 rounded-full text-white text-sm mb-4">
                 For Practitioners
               </span>
@@ -443,10 +476,9 @@ export default function HomePage() {
       {/* Our Solution Section */}
 
       <section className="relative py-16 px-4 sm:px-6 lg:px-8">
-        {/* Background blur circle */}
         <div className="absolute inset-0 flex justify-center items-center">
-          <div
-            className="rounded-full relative z-15"
+          <div //dodaj ovde manji blur
+            className="rounded-full hidden sm:flex relative z-15"
             style={{
               width: "420px",
               height: "420px",
@@ -468,10 +500,96 @@ export default function HomePage() {
             Our Solution
           </h2>
 
-          <div className="relative flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0">
-            {/* Left Column Cards - positioned to follow skeleton contours */}
+          {/* Mobile view */}
+          <div className="block md:hidden relative min-h-[600px]">
+            {/* Skeleton image */}
+            <div className="flex justify-center">
+              <Image src={skeleton} alt="Skeleton" width={220} height={440} />
+
+              {/* Cards overlay */}
+              <div className="absolute inset-0">
+                {/* 1. Head level */}
+                <div
+                  className="absolute opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
+                  style={{ top: "20px" }}
+                >
+                  <h3 className="font-semibold text-white text-sm mb-1">
+                    AI-driven Avatar that evolves
+                  </h3>
+                  <p className="text-gray-300 text-xs">
+                    with your health inputs
+                  </p>
+                </div>
+
+                {/* 2. Upper torso */}
+                <div
+                  className="absolute  opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
+                  style={{ top: "100px" }}
+                >
+                  <h3 className="font-semibold text-white text-sm mb-1">
+                    Tailored wellness plans and
+                  </h3>
+                  <p className="text-gray-300 text-xs">
+                    adaptive recommendations
+                  </p>
+                </div>
+
+                {/* 3. Mid torso */}
+                <div
+                  className="absolute  opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
+                  style={{ top: "180px" }}
+                >
+                  <h3 className="font-semibold text-white text-sm mb-1">
+                    Full ownership and optional
+                  </h3>
+                  <p className="text-gray-300 text-xs">
+                    monetization of health data
+                  </p>
+                </div>
+
+                {/* 4. Lower torso */}
+                <div
+                  className="absolute opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
+                  style={{ top: "260px" }}
+                >
+                  <h3 className="font-semibold text-white text-sm mb-1">
+                    AI diagnostic assistant
+                  </h3>
+                  <p className="text-gray-300 text-xs">(MediClinIQ)</p>
+                </div>
+
+                {/* 5. Upper legs */}
+                <div
+                  className="absolute opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
+                  style={{ top: "340px" }}
+                >
+                  <h3 className="font-semibold text-white text-sm mb-1">
+                    Personalized treatment plans
+                  </h3>
+                  <p className="text-gray-300 text-xs">
+                    (drugs + natural compounds)
+                  </p>
+                </div>
+
+                {/* 6. Lower legs */}
+                <div
+                  className="absolute opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
+                  style={{ top: "420px" }}
+                >
+                  <h3 className="font-semibold text-white text-sm mb-1">
+                    Exportable plans with
+                  </h3>
+                  <p className="text-gray-300 text-xs">
+                    lifestyle, nutrition, and supplement guidance
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <div className="relative  flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0"> */}
+          <div className="hidden sm:flex relative flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0">
             <div className="absolute left-0 md:left-1/4 transform md:-translate-x-full md:-translate-x-20 z-10">
-              {/* Top card - head level */}
               <div
                 className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
                 style={{
@@ -486,7 +604,6 @@ export default function HomePage() {
                 with your health inputs
               </div>
 
-              {/* Middle card - torso level */}
               <div
                 className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
                 style={{
@@ -501,7 +618,6 @@ export default function HomePage() {
                 adaptive recommendations
               </div>
 
-              {/* Bottom card - lower body level */}
               <div
                 className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
                 style={{
@@ -517,14 +633,11 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Center Skeleton Image */}
             <div className="relative z-20">
               <Image src={skeleton} alt="Skeleton" width={300} height={600} />
             </div>
 
-            {/* Right Column Cards - positioned to follow skeleton contours */}
             <div className="absolute right-0 md:right-1/4 transform md:translate-x-full md:translate-x-20 z-10">
-              {/* Top card - head level */}
               <div
                 className="rounded-2xl w-[300px] p-6  text-left backdrop-blur-sm absolute"
                 style={{
@@ -539,7 +652,6 @@ export default function HomePage() {
                 (MediClinIQ)
               </div>
 
-              {/* Middle card - torso level */}
               <div
                 className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
                 style={{
@@ -554,7 +666,6 @@ export default function HomePage() {
                 (drugs + natural compounds)
               </div>
 
-              {/* Bottom card - lower body level */}
               <div
                 className="rounded-2xl p-6 w-[320px] text-left backdrop-blur-sm absolute"
                 style={{
@@ -699,8 +810,8 @@ export default function HomePage() {
               <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">
                 M1 Super App
               </h2>
-              <h3 className="text-3xl md:text-4xl font-bold leading-tight">
-                Central Command
+              <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                Central Command for the
                 <br />
                 <span
                   style={{
@@ -710,7 +821,7 @@ export default function HomePage() {
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  for a Health AI Ecosystem
+                  Avataris AI Ecosystem
                 </span>
               </h3>
             </div>
@@ -819,111 +930,181 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className=" text-gray-300">
+      <footer className="text-gray-300">
         {/* Spacer above line */}
         <div className="pt-8" />
 
-        {/* Centered purple line */}
-        <div className="flex justify-center">
-          <div className="w-[1000px] h-px bg-[#534896]" />
+        {/* Centered purple line with responsive width */}
+        <div className="flex justify-center px-4">
+          <div
+            className="h-px bg-[#534896]"
+            style={{
+              width: "min(90%, 1000px)",
+            }}
+          />
         </div>
 
         {/* Disclaimer toggle, centered */}
-        <div className="flex justify-center px-4 py-4">
+        <div className="flex justify-center px-4 py-6">
           <button
             onClick={() => setIsOpen((o) => !o)}
-            className="flex items-center space-x-2 text-sm hover:text-white focus:outline-none"
+            className="flex items-center space-x-2 text-sm md:text-base hover:text-white focus:outline-none transition-colors duration-200"
           >
             <span className="underline">Disclaimer</span>
-            <span className="text-xl leading-none">{isOpen ? "−" : "+"}</span>
+            <span
+              className={`text-xl leading-none transition-transform duration-300 ${
+                isOpen ? "rotate-180" : "rotate-0"
+              }`}
+            >
+              {isOpen ? "−" : "+"}
+            </span>
           </button>
         </div>
 
-        {/* Expandable disclaimer content */}
+        {/* Expandable disclaimer content with smooth animation */}
         <div
-          className={
-            `max-w-7xl mx-auto px-4 overflow-hidden transition-all duration-300 ease-in-out ` +
-            (isOpen ? "max-h-[800px] py-4" : "max-h-0")
-          }
+          className={`overflow-hidden transition-all duration-500 ease-in-out ${
+            isOpen ? "max-h-[1200px] opacity-100" : "max-h-0 opacity-0"
+          }`}
         >
-          <p className="text-sm leading-relaxed mb-4">
-            This presentation is provided for informational and discussion
-            purposes only. It is not intended to constitute, and does not
-            constitute, an offer to sell or the solicitation of an offer to buy
-            any securities, financial instruments, or digital assets in any
-            jurisdiction. No portion of this presentation shall be relied upon
-            in connection with any investment decision.
-          </p>
-          <p className="text-sm leading-relaxed mb-4">
-            Avataris AI (a brand operated by Avataris Health Innovations Inc., a
-            Canadian corporation) does not create, issue, or sell the MEDX
-            token. The MEDX token is created and issued by a separate and
-            independent entity, Medix Launch Partners, for use exclusively
-            within the Avataris Ecosystem as a utility token. MEDX is not
-            intended to function as an investment vehicle or store of value and
-            is not offered as a security or financial instrument in any
-            jurisdiction.
-          </p>
-          <p className="text-sm leading-relaxed mb-4">
-            All descriptions of token utility are illustrative of current and
-            planned platform functionality only.
-          </p>
-          <p className="text-sm leading-relaxed mb-4">
-            The availability of such features may vary based on region,
-            regulation, user eligibility, and ongoing platform development. Use
-            of MEDX is subject to applicable terms of service and local
-            regulations.
-          </p>
-          <p className="text-sm leading-relaxed mb-4">
-            This presentation may reference digital health, AI-powered
-            diagnostics, and health-related use cases. Nothing herein should be
-            construed as medical advice.
-          </p>
-          <p className="text-sm leading-relaxed mb-4">
-            All medical use cases are subject to local regulatory approval and
-            platform compliance with applicable laws, including but not limited
-            to HIPAA, PIPEDA, GDPR, and equivalent international standards for
-            data protection and privacy. Past performance, product roadmaps, or
-            adoption forecasts included in this presentation are not guarantees
-            of future results. All statements herein are subject to change
-            without notice.
-          </p>
-          <p className="text-sm leading-relaxed mb-4 font-semibold">
-            DO NOT DISTRIBUTE WITHOUT EXPRESS WRITTEN CONSENT
-            <br />
-            Confidential © Avataris Health Innovations Inc. 2025. All Rights
-            Reserved.
-          </p>
+          <div className="max-w-6xl mx-auto px-4 pb-8">
+            <div className="space-y-4 text-xs sm:text-sm leading-relaxed">
+              <p>
+                This presentation is provided for informational and discussion
+                purposes only. It is not intended to constitute, and does not
+                constitute, an offer to sell or the solicitation of an offer to
+                buy any securities, financial instruments, or digital assets in
+                any jurisdiction. No portion of this presentation shall be
+                relied upon in connection with any investment decision.
+              </p>
+              <p>
+                Avataris AI (a brand operated by Avataris Health Innovations
+                Inc., a Canadian corporation) does not create, issue, or sell
+                the MEDX token. The MEDX token is created and issued by a
+                separate and independent entity, Medix Launch Partners, for use
+                exclusively within the Avataris Ecosystem as a utility token.
+                MEDX is not intended to function as an investment vehicle or
+                store of value and is not offered as a security or financial
+                instrument in any jurisdiction.
+              </p>
+              <p>
+                All descriptions of token utility are illustrative of current
+                and planned platform functionality only.
+              </p>
+              <p>
+                The availability of such features may vary based on region,
+                regulation, user eligibility, and ongoing platform development.
+                Use of MEDX is subject to applicable terms of service and local
+                regulations.
+              </p>
+              <p>
+                This presentation may reference digital health, AI-powered
+                diagnostics, and health-related use cases. Nothing herein should
+                be construed as medical advice.
+              </p>
+              <p>
+                All medical use cases are subject to local regulatory approval
+                and platform compliance with applicable laws, including but not
+                limited to HIPAA, PIPEDA, GDPR, and equivalent international
+                standards for data protection and privacy. Past performance,
+                product roadmaps, or adoption forecasts included in this
+                presentation are not guarantees of future results. All
+                statements herein are subject to change without notice.
+              </p>
+              <p className="font-semibold pt-2">
+                DO NOT DISTRIBUTE WITHOUT EXPRESS WRITTEN CONSENT
+                <br />
+                Confidential © Avataris Health Innovations Inc. 2025. All Rights
+                Reserved.
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom row: email and logo block */}
-        <div className="max-w-7xl mx-auto px-4 py-6 flex justify-between items-start">
-          {/* Left: contact email */}
-          <div className="text-sm">info@avataris.ai</div>
-          <Link href="/privacy" className="text-sm">
-            Privacy Policy
-          </Link>
-          <Link href="/tearms" className="text-sm">
-            Tearms of Service
-          </Link>
+        {/* Bottom row: email, links, and logo block */}
+        <div className="max-w-6xl mx-auto px-4 py-6">
+          {/* Mobile layout (stacked) */}
+          <div className="block md:hidden space-y-4">
+            {/* Top row: email and links */}
+            <div className="flex flex-col sm:flex-row justify-between items-start space-y-2 sm:space-y-0">
+              <div className="text-xs">info@avataris.ai</div>
+              <div className="flex space-x-4 text-xs">
+                <Link
+                  href="/privacy"
+                  className="hover:text-white transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  href="/terms"
+                  className="hover:text-white transition-colors"
+                >
+                  Terms of Service
+                </Link>
+              </div>
+            </div>
 
-          {/* Right: logo, name, slogan, copyright */}
-          <div className="text-right space-y-1">
-            <div className="flex items-center justify-end space-x-2">
-              <Image
-                src={logoavatarise}
-                alt="AvatarisAI logo"
-                width={150}
-                height={150}
-                className="mb-2"
-              />
+            {/* Bottom row: logo and info */}
+            <div className="flex justify-between items-end">
+              <div className="flex items-center space-x-2">
+                <Image
+                  src={logoavatarise}
+                  alt="AvatarisAI logo"
+                  width={80}
+                  height={80}
+                />
+              </div>
+              <div className="text-right space-y-1">
+                <div className="text-xs text-gray-400">
+                  Your Health. Your Data.
+                  <br />
+                  Your Avatar.
+                </div>
+                <div className="text-xs text-gray-400">© 2025 — Copyright</div>
+              </div>
             </div>
-            <div className="text-xs text-gray-400">
-              Your Health. Your Data.
-              <br />
-              Your Avatar.
+          </div>
+
+          {/* Desktop layout */}
+          <div className="hidden md:flex justify-between items-end">
+            {/* Left: contact email and links */}
+            <div className="flex flex-col space-y-2">
+              <div className="text-sm">info@avataris.ai</div>
+              <div className="flex space-x-6 text-sm">
+                <Link
+                  href="/privacy"
+                  className="hover:text-white transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  href="/terms"
+                  className="hover:text-white transition-colors"
+                >
+                  Terms of Service
+                </Link>
+              </div>
             </div>
-            <div className="text-xs text-gray-400">© 2025 — Copyright</div>
+
+            {/* Right: logo, name, slogan, copyright */}
+            <div className="text-right">
+              <div className="flex items-center justify-end space-x-3 mb-2">
+                <Image
+                  src={logoavatarise}
+                  alt="AvatarisAI logo"
+                  width={120}
+                  height={120}
+                />
+              </div>
+              <div className="text-xs text-gray-400 space-y-1">
+                <div>
+                  Your Health. Your Data.
+                  <br />
+                  Your Avatar.
+                </div>
+                <div>© 2025 — Copyright</div>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
