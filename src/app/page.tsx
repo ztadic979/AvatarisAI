@@ -284,7 +284,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-white/60 text-lg mb-12 max-w-md mx-auto">
-              Description here, for SEO
+              Innovating tech for your personal wellbeing
             </p>
 
             <button className="cursor-pointer bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-300 transform">
@@ -356,9 +356,15 @@ export default function HomePage() {
               accessibility — using artificial intelligence, blockchain, and{" "}
               <span
                 className="text-transparent bg-clip-text"
+                // style={{
+                //   background:
+                //     "linear-gradient(180deg, #FFFFFF 54.17%, #71AECE 100%)",
+                //   WebkitBackgroundClip: "text",
+                //   WebkitTextFillColor: "transparent",
+                // }}
                 style={{
                   background:
-                    "linear-gradient(180deg, #FFFFFF 54.17%, #71AECE 100%)",
+                    "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}
@@ -394,7 +400,7 @@ export default function HomePage() {
               className="text-transparent bg-clip-text"
               style={{
                 background:
-                  "linear-gradient(180deg, #FFFFFF 54.17%, #71AECE 100%)",
+                  "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -451,7 +457,16 @@ export default function HomePage() {
         </div>
 
         <div className="relative max-w-6xl mx-auto text-center text-white">
-          <h2 className="text-4xl font-semibold mb-12">Our Solution</h2>
+          <h2
+            className="text-4xl font-semibold mb-12"
+            style={{
+              background: "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Our Solution
+          </h2>
           <div className="flex flex-col md:flex-row items-center justify-center md:space-x-8 space-y-8 md:space-y-0">
             {/* Left Column Cards */}
             <div className="flex flex-col space-y-8">
@@ -501,7 +516,14 @@ export default function HomePage() {
 
       <section className="py-16 px-6 lg:px-8 z-5">
         <div className="max-w-6xl mx-auto text-white">
-          <h2 className="text-4xl font-semibold mb-10">
+          <h2
+            className="text-4xl font-semibold mb-10"
+            style={{
+              background: "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
             Explore the Ecosystem
           </h2>
           <div className="space-y-12">
@@ -529,7 +551,7 @@ export default function HomePage() {
                         : "text-gray-500 hover:text-white"
                     }`}
                   >
-                    {tab.label}
+                    {/* {tab.label} */}
                   </button>
 
                   {/* 2) The exact same collapse logic you had */}
@@ -616,10 +638,19 @@ export default function HomePage() {
               <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">
                 M1 Super App
               </h2>
-              <h3 className="text-3xl md:text-4xl font-bold text-blue-300 leading-tight">
+              <h3 className="text-3xl md:text-4xl font-bold leading-tight">
                 Central Command
                 <br />
-                for a Health AI Ecosystem
+                <span
+                  style={{
+                    background:
+                      "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  for a Health AI Ecosystem
+                </span>
               </h3>
             </div>
 
@@ -640,7 +671,16 @@ export default function HomePage() {
       <section className=" py-16 px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center text-white">
           <h2 className="text-4xl font-semibold">Meet the Team Driving</h2>
-          <h3 className="text-3xl text-blue-300 mb-12">Avataris AI Forward</h3>
+          <h3
+            className="text-3xl mb-12"
+            style={{
+              background: "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Avataris AI Forward
+          </h3>
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {team.map((member, idx) => (
               <div
@@ -800,10 +840,10 @@ export default function HomePage() {
           {/* Left: contact email */}
           <div className="text-sm">info@avataris.ai</div>
           <Link href="/privacy" className="text-sm">
-            privacy policy
+            Privacy Policy
           </Link>
           <Link href="/tearms" className="text-sm">
-            tearms of service
+            Tearms of Service
           </Link>
 
           {/* Right: logo, name, slogan, copyright */}
