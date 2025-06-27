@@ -3,7 +3,12 @@ import Image from "next/image";
 import skeleton from "../../public/skeleton.png";
 import AIModel from "../../public/AIModel.png";
 import food from "../../public/food.png";
-import NN from "../../public/NN.png";
+import Terry from "../../public/Terry.png";
+import Edwin from "../../public/Edwin.png";
+import Sazzad from "../../public/Sazzad.png";
+import Zoran from "../../public/Zoran.png";
+import Viktor from "../../public/Viktor.png";
+import Anita from "../../public/Anita.png";
 import kopi from "../../public/kopi.png";
 import sales from "../../public/sales.png";
 import photoshelter from "../../public/photoshelter.png";
@@ -44,31 +49,37 @@ export default function HomePage() {
       name: "Terry O’Hearn",
       role: "CEO, Co-Founder & Strategist",
       desc: "Visionary entrepreneur with a background in public markets, blockchain, and AI-integrated healthcare. Leads strategy, governance, and capital structuring across the Avataris Ecosystem.",
+      imageSrc: Terry,
     },
     {
       name: "Edwin Gershom, PhD",
       role: "VP, Strategic Alliances",
       desc: "Health sciences expert with extensive experience in clinical business development. Skilled public speaker and global partnership builder, leading commercial alignment and integrative product strategy.",
+      imageSrc: Edwin,
     },
     {
       name: "Dr. Sazzad Hossain, PhD",
       role: "Chief Science Officer",
       desc: "Former Chief Scientist at a publicly listed Canadian tech firm. Specialist in AI model training, algorithmic validation, and translational research in healthcare and drug response prediction.",
+      imageSrc: Sazzad,
     },
     {
       name: "Zoran Tadic",
       role: "Chief Technology Officer",
       desc: "Full-stack technologist and Web3 architect. Builder of decentralized systems, enterprise-grade platforms, and real-time machine learning infrastructures. Leads M1 Super App development and AI integration.",
+      imageSrc: Zoran,
     },
     {
       name: "Viktor Uzunov",
       role: "Advisor, Web3 Strategy",
       desc: "Blockchain veteran and smart contract advisor. Brings experience from DeFi, token architecture, and DAO governance, ensuring Avataris AI’s Web3 stack is scalable and secure.",
+      imageSrc: Viktor,
     },
     {
       name: "Anita Permata Sari",
       role: "KOL & Digital Communications Strategist",
       desc: "Actively leading influencer and marketing strategies since 2019, with a foundation as a TV Host, actress and digital creator since2014. Specializes in building brand value through KOL management and bridging brands with impactful voices to drive growth and engagement.",
+      imageSrc: Anita,
     },
   ];
 
@@ -948,27 +959,29 @@ export default function HomePage() {
             {team.map((member, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl p-6"
+                className="rounded-2xl overflow-hidden"
                 style={{
                   background:
                     "linear-gradient(107.08deg, #0C1D2A 0.54%, #03090E 99.46%)",
                   border: "1px solid #14435433",
                 }}
               >
-                <div className="w-full h-40  rounded mb-4 overflow-hidden flex items-center justify-center">
+                <div className="relative w-full h-48">
                   <Image
-                    src={NN}
+                    src={member.imageSrc}
                     alt={member.name}
-                    width={150}
-                    height={200}
-                    className="object-cover h-[200px]"
+                    fill
+                    className="object-cover"
                   />
                 </div>
-                <h4 className="text-xl font-semibold mb-1">{member.name}</h4>
-                <p className="text-gray-400 text-sm mb-4">{member.role}</p>
-                <p className="text-gray-300 text-sm leading-relaxed text-left">
-                  {member.desc}
-                </p>
+
+                <div className="px-6 py-4">
+                  <h4 className="text-xl font-semibold mb-1">{member.name}</h4>
+                  <p className="text-gray-400 text-sm mb-4">{member.role}</p>
+                  <p className="text-gray-300 text-sm leading-relaxed text-left">
+                    {member.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
