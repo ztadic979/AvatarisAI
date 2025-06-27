@@ -33,7 +33,7 @@ export default function PrivacyPage() {
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 pt-10 pb-16">
+      <main className="relative z-10 max-w-4xl mx-auto px-4 sm:px-2 pt-10 pb-16">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12">
           Terms of Service
         </h1>

@@ -207,7 +207,7 @@ export default function TermsPage() {
           <div className="flex justify-center px-4">
             <div
               className="h-px bg-[#534896]"
-              style={{ width: "min(90%, 1000px)" }}
+              style={{ width: "min(100%, 1000px)" }}
             />
           </div>
 
@@ -238,9 +238,50 @@ export default function TermsPage() {
                 This presentation is provided for informational and discussion
                 purposes only. It is not intended to constitute, and does not
                 constitute, an offer to sell or the solicitation of an offer to
-                buy any securities...
+                buy any securities, financial instruments, or digital assets in
+                any jurisdiction. No portion of this presentation shall be
+                relied upon in connection with any investment decision.
               </p>
-              {/* Truncated for brevity — keep full content in your file */}
+              <p>
+                Avataris AI (a brand operated by Avataris Health Innovations
+                Inc., a Canadian corporation) does not create, issue, or sell
+                the MEDX token. The MEDX token is created and issued by a
+                separate and independent entity, Medix Launch Partners, for use
+                exclusively within the Avataris Ecosystem as a utility token.
+                MEDX is not intended to function as an investment vehicle or
+                store of value and is not offered as a security or financial
+                instrument in any jurisdiction.
+              </p>
+              <p>
+                All descriptions of token utility are illustrative of current
+                and planned platform functionality only.
+              </p>
+              <p>
+                The availability of such features may vary based on region,
+                regulation, user eligibility, and ongoing platform development.
+                Use of MEDX is subject to applicable terms of service and local
+                regulations.
+              </p>
+              <p>
+                This presentation may reference digital health, AI-powered
+                diagnostics, and health-related use cases. Nothing herein should
+                be construed as medical advice.
+              </p>
+              <p>
+                All medical use cases are subject to local regulatory approval
+                and platform compliance with applicable laws, including but not
+                limited to HIPAA, PIPEDA, GDPR, and equivalent international
+                standards for data protection and privacy. Past performance,
+                product roadmaps, or adoption forecasts included in this
+                presentation are not guarantees of future results. All
+                statements herein are subject to change without notice.
+              </p>
+              <p className="font-semibold pt-2">
+                DO NOT DISTRIBUTE WITHOUT EXPRESS WRITTEN CONSENT
+                <br />
+                Confidential © Avataris Health Innovations Inc. 2025. All Rights
+                Reserved.
+              </p>
             </div>
           </div>
 

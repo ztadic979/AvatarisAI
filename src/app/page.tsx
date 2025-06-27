@@ -290,7 +290,7 @@ export default function HomePage() {
             A New Era of Intelligence in Medicine
           </span>
 
-          <h1 className="text-3xl sm:text-5xl md:text-5xl font-bold text-white mb-3 leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-5xl font-semibold text-white mb-3 leading-tight">
             Your Health. Your Data.
             <br />
             <span
@@ -310,9 +310,11 @@ export default function HomePage() {
             Innovating tech for your personal wellbeing
           </p>
 
-          <button className="bg-white cursor-pointer text-gray-900 px-6 py-2 sm:px-8 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300">
-            Contact Us
-          </button>
+          <a href="https://www.linkedin.com/company/avatarisai" target="_blank">
+            <button className="bg-white cursor-pointer text-gray-900 px-6 py-2 sm:px-8 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300">
+              Contact Us
+            </button>
+          </a>
         </div>
 
         {/* trust logos */}
@@ -743,7 +745,7 @@ export default function HomePage() {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {/* Left Column */}
                             <div>
-                              <span className="inline-block px-4 py-2 mb-4 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#112A3B]/15">
+                              <span className="inline-block px-4 py-2 mb-4 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#FFFFFF]/15">
                                 {tab.badge}
                               </span>
                               <h3 className="text-3xl font-semibold mb-4">
@@ -824,7 +826,7 @@ export default function HomePage() {
                   .filter((tab) => tab.key === active)
                   .map((tab) => (
                     <div key={tab.key} className="space-y-4">
-                      <span className="inline-block px-3 py-1 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#112A3B]/15">
+                      <span className="inline-block px-3 py-1 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#FFFFFF]/15">
                         {tab.badge}
                       </span>
                       <h3 className="text-2xl font-semibold text-white">
@@ -957,7 +959,7 @@ export default function HomePage() {
                 </div>
                 <h4 className="text-xl font-semibold mb-1">{member.name}</h4>
                 <p className="text-gray-400 text-sm mb-4">{member.role}</p>
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-gray-300 text-sm leading-relaxed text-left">
                   {member.desc}
                 </p>
               </div>
