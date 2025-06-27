@@ -302,7 +302,7 @@ export default function PrivacyPage() {
           <div className="block md:hidden space-y-4">
             {/* Top row: email and links */}
             <div className="flex flex-col sm:flex-row justify-between items-start space-y-2 sm:space-y-0">
-              <div className="text-xs">info@avataris.ai</div>
+              <div className="text-xs">info@avatarisai.com</div>
               <div className="flex space-x-4 text-xs">
                 <Link
                   href="/privacy"
@@ -344,7 +344,7 @@ export default function PrivacyPage() {
           <div className="hidden md:flex justify-between items-end">
             {/* Left: contact email and links */}
             <div className="flex flex-col space-y-2">
-              <div className="text-sm">info@avataris.ai</div>
+              <div className="text-sm">info@avatarisai.com</div>
               <div className="flex space-x-6 text-sm">
                 <Link
                   href="/privacy"
