@@ -318,7 +318,7 @@ export default function HomePage() {
         </div>
 
         {/* trust logos */}
-        <div className="absolute bottom-8 left-0 right-0 px-4">
+        <div className="absolute bottom-4 left-0 right-0 px-4">
           <p className="text-center text-white/80 text-xs sm:text-sm mb-10">
             Trusted by leading biotech companies worldwide
           </p>
@@ -382,11 +382,18 @@ export default function HomePage() {
 
       {/* mobile-only */}
       <section className="block md:hidden px-4 py-8 bg-[#03090E]">
+        <style jsx>{`
+          @media screen and (max-width: 361px) {
+            .s8-text {
+              font-size: 1.25rem; /* text-xl */
+            }
+          }
+        `}</style>
         <div
           className="max-w-sm mx-auto bg-[#011D35] rounded-2xl p-6 flex flex-col justify-between"
           style={{ minHeight: "380px" }}
         >
-          <h2 className="text-white text-2xl leading-snug z-20 relative">
+          <h2 className="text-white text-2xl leading-snug z-20 relative s8-text">
             Our mission is to bridge the gap between innovation and
             accessibility — using artificial intelligence, blockchain, and{" "}
             <span
