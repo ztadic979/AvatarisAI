@@ -289,7 +289,7 @@ export default function TermsPage() {
           <div className="max-w-6xl mx-auto px-4 py-6">
             <div className="block md:hidden space-y-4">
               <div className="flex flex-col sm:flex-row justify-between items-start space-y-2 sm:space-y-0">
-                <div className="text-xs">info@avataris.ai</div>
+                <div className="text-xs">info@avatarisai.com</div>
                 <div className="flex space-x-4 text-xs">
                   <Link
                     href="/privacy"
@@ -324,7 +324,7 @@ export default function TermsPage() {
 
             <div className="hidden md:flex justify-between items-end">
               <div className="flex flex-col space-y-2 text-sm">
-                <div>info@avataris.ai</div>
+                <div>info@avatarisai.com</div>
                 <div className="flex space-x-6">
                   <Link
                     href="/privacy"
