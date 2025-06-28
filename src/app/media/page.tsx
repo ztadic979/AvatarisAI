@@ -1,9 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
-import logoavatarise from "../../../public/logoavatarise.png";
-import Link from "next/link";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const mediaItems = [
   {
@@ -54,52 +53,10 @@ const testimonials = [
 ];
 
 export default function MediaPage() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-[#03090E] overflow-x-hidden">
       {/* Header */}
-      <header className="fixed inset-x-0 top-0 z-50 bg-[#03090E]/30 backdrop-blur-sm px-4 sm:px-10 py-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/">
-            <Image src={logoavatarise} alt="Logo" className="w-24 sm:w-32" />
-          </Link>
-          <nav className="hidden md:flex space-x-8 text-white/80">
-            {["Media", "Investors", "About"].map((text) => (
-              <a
-                key={text}
-                href={`/${text.toLowerCase()}`}
-                className="hover:text-white transition"
-              >
-                {text}
-              </a>
-            ))}
-          </nav>
-          <button
-            className="md:hidden p-2 text-white"
-            onClick={() => setMobileOpen((o) => !o)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-        {mobileOpen && (
-          <div className="md:hidden bg-[#03090E]/95 backdrop-blur-sm">
-            <nav className="flex flex-col space-y-4 p-4 text-white/80">
-              {["Media", "Investors", "About"].map((text) => (
-                <a
-                  key={text}
-                  href={`${text.toLowerCase()}`}
-                  className="text-lg hover:text-white"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {text}
-                </a>
-              ))}
-            </nav>
-          </div>
-        )}
-      </header>
+      <Header />
 
       {/* Spacer for header */}
       <div className="pt-[72px]" />
@@ -185,23 +142,7 @@ export default function MediaPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="text-gray-300 py-8 bg-[#03090E]">
-        <div className="flex justify-center px-4">
-          <div className="h-px bg-[#534896] w-full max-w-6xl" />
-        </div>
-        <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
-          <div className="text-sm">info@avatarisai.com</div>
-          <div className="flex space-x-6 text-sm mt-4 md:mt-0">
-            <a href="/privacy" className="hover:text-white">
-              Privacy Policy
-            </a>
-            <a href="/terms" className="hover:text-white">
-              Terms of Service
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
