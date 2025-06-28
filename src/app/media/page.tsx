@@ -43,7 +43,7 @@ const testimonials = [
     name: "James Lee",
     img: "/Viktor.png",
     quote:
-      "The personalized medicine platform has changed how we treat patients. Outstanding tech!",
+      "The personalized medicine platform has changed how we treat patients. Outstanding tech!   ",
   },
   {
     name: "Diego Martinez",
