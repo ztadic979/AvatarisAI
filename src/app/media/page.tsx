@@ -28,7 +28,7 @@ const mediaItems = [
     title: "Ethics of AI in Healthcare",
     url: "https://www.youtube.com/embed/j9rhKMNePnU",
     description:
-      "A discussion on the ethical considerations of deploying AI in clinical settings.",
+      "A discussion on the ethical considerations of deploying AI in clinical settings.        test s",
   },
 ];
 
