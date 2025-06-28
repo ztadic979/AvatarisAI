@@ -19,14 +19,17 @@ import phone from "../../public/phone.png";
 import DNK from "../../public/DNK.png";
 import earth from "../../public/earth.png";
 import hands from "../../public/hands.png";
+
 import strategy from "../../public/strategy.png";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     function onResize() {
       setIsMobile(window.innerWidth < breakpoint);
@@ -39,7 +42,7 @@ function useIsMobile(breakpoint = 768) {
 }
 
 export default function HomePage() {
-  // const [active, setActive] = useState("nutri");
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile(768);
 
@@ -254,14 +257,61 @@ export default function HomePage() {
       className="min-h-screen overflow-x-hidden"
       style={{ backgroundColor: "#03090E" }}
     >
-      <section className="relative min-h-screen flex flex-col justify-center items-center px-4 overflow-x-hidden bg-[#03090E]">
-        {/* header */}
-        <header className="absolute top-6 left-4 right-4 sm:left-10 sm:right-10 p-4 sm:p-6">
-          <div className="flex items-center justify-center sm:justify-start">
-            <Image src={logoavatarise} alt="logo" className="w-24 sm:w-32" />
-          </div>
-        </header>
+      <header className="fixed inset-x-0 top-0 z-50 bg-[#03090E]/30 backdrop-blur-sm px-4 sm:px-10 py-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/">
+            <Image src={logoavatarise} alt="Logo" className="w-24 sm:w-32" />
+          </Link>
+          {/* Desktop links */}
+          <nav className="hidden md:flex space-x-8">
+            {["Media", "Investors", "About"].map((text) => (
+              <Link
+                key={text}
+                href={`${text.toLowerCase()}`}
+                className="text-white/80 hover:text-white transition"
+              >
+                {text}
+              </Link>
+            ))}
+          </nav>
 
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden p-2"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? (
+              <X size={24} className="text-white" />
+            ) : (
+              <Menu size={24} className="text-white" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile dropdown */}
+        {mobileOpen && (
+          <div className="md:hidden bg-[#03090E]/95 backdrop-blur-sm">
+            <nav className="flex flex-col space-y-4 p-4">
+              {["Media", "Investors", "About"].map((text) => (
+                <a
+                  key={text}
+                  href={`${text.toLowerCase()}`}
+                  className="text-white/80 hover:text-white text-lg"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {text}
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
+      </header>
+
+      {/* Push content down so it doesn’t sit under the fixed header */}
+      <div className="pt-[72px]" />
+      <section className="relative min-h-screen flex flex-col justify-center items-center px-4 overflow-x-hidden bg-[#03090E]">
         <div
           className="absolute rounded-full border border-gray-500 opacity-10
                w-[300px] h-[300px]    /* mobile */
@@ -346,6 +396,31 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* video */}
+      <section className="py-16 px-4 bg-[#03090E] text-center">
+        <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-6">
+          <span
+            className="text-transparent bg-clip-text"
+            style={{
+              background:
+                "linear-gradient(180deg, #FFFFFF 54.17%, #71AECE 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Be part of Advance Healthcare
+          </span>
+        </h2>
+
+        <video
+          controls
+          className="mx-auto w-full max-w-3xl rounded-2xl shadow-xl"
+        >
+          <source src="/videopresentation.mp4" type="video/mp4" />
+          Your browser doesn’t support HTML5 video.
+        </video>
       </section>
 
       {/* Mission Section */}
