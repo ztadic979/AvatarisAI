@@ -2,199 +2,26 @@
 import Image from "next/image";
 import skeleton from "../../public/skeleton.png";
 import AIModel from "../../public/AIModel.png";
-import food from "../../public/food.png";
-import NN from "../../public/NN.png";
 import kopi from "../../public/kopi.png";
 import sales from "../../public/sales.png";
 import photoshelter from "../../public/photoshelter.png";
 import flatfile from "../../public/flatfile.png";
 import ailabs from "../../public/ailabs.png";
-import logoavatarise from "../../public/logoavatarise.png";
 import phone from "../../public/phone.png";
 import DNK from "../../public/DNK.png";
 import earth from "../../public/earth.png";
-import hands from "../../public/hands.png";
-import strategy from "../../public/strategy.png";
-import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+
+import React, { useRef, useState } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
 
-function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    function onResize() {
-      setIsMobile(window.innerWidth < breakpoint);
-    }
-    window.addEventListener("resize", onResize);
-    onResize(); // init
-    return () => window.removeEventListener("resize", onResize);
-  }, [breakpoint]);
-  return isMobile;
-}
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { TABS, TEAM } from "./mockData/mockData";
+import { useIsMobile } from "./hooks/useIsMobile";
 
 export default function HomePage() {
-  // const [active, setActive] = useState("nutri");
-  const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile(768);
-
-  // Team members data
-  const team = [
-    {
-      name: "Terry O’Hearn",
-      role: "CEO, Co-Founder & Strategist",
-      desc: "Visionary entrepreneur with a background in public markets, blockchain, and AI-integrated healthcare. Leads strategy, governance, and capital structuring across the Avataris Ecosystem.",
-    },
-    {
-      name: "Edwin Gershom, PhD",
-      role: "VP, Strategic Alliances",
-      desc: "Health sciences expert with extensive experience in clinical business development. Skilled public speaker and global partnership builder, leading commercial alignment and integrative product strategy.",
-    },
-    {
-      name: "Dr. Sazzad Hossain, PhD",
-      role: "Chief Science Officer",
-      desc: "Former Chief Scientist at a publicly listed Canadian tech firm. Specialist in AI model training, algorithmic validation, and translational research in healthcare and drug response prediction.",
-    },
-    {
-      name: "Zoran Tadic",
-      role: "Chief Technology Officer",
-      desc: "Full-stack technologist and Web3 architect. Builder of decentralized systems, enterprise-grade platforms, and real-time machine learning infrastructures. Leads M1 Super App development and AI integration.",
-    },
-    {
-      name: "Viktor Uzunov",
-      role: "Advisor, Web3 Strategy",
-      desc: "Blockchain veteran and smart contract advisor. Brings experience from DeFi, token architecture, and DAO governance, ensuring Avataris AI’s Web3 stack is scalable and secure.",
-    },
-    {
-      name: "Anita Permata Sari",
-      role: "KOL & Digital Communications Strategist",
-      desc: "Actively leading influencer and marketing strategies since 2019, with a foundation as a TV Host, actress and digital creator since2014. Specializes in building brand value through KOL management and bridging brands with impactful voices to drive growth and engagement.",
-    },
-  ];
-
-  // Tabs data
-  const tabs = [
-    {
-      key: "nutri",
-      label: "NutriSync",
-      badge: "The AI-Driven Wellness App for the World",
-      heading: "NutriSync",
-      image: food,
-      bullets: [
-        "Custom wellness plans based on real inputs (not just user guesses)",
-        "AI and incentives keep users engaged and progressing",
-        "Full ownership of health data, with monetization options",
-        "Inclusive, global-first design for underserved regions",
-      ],
-      features: [
-        {
-          emoji: "🍽️",
-          title: "Smart Meal Planning from Fridge Photos & Videos",
-          text: "Turn leftovers into nutrition-optimized meals using AI image recognition",
-        },
-        {
-          emoji: "🏃",
-          title: "Fitness & Nutrition Tracking",
-          text: "Daily logs of workouts, calories, macros — with adaptive guidance",
-        },
-        {
-          emoji: "🧠",
-          title: "NPM Coaching Modes",
-          text: "Personalized coaching powered by Avataris’s integrative intelligence",
-        },
-        {
-          emoji: "🌐",
-          title: "Multilingual & Cultural Localization",
-          text: "Region-specific meals, movement routines, and health tips",
-        },
-        {
-          emoji: "🎁",
-          title: "Gamified Rewards with MEDX",
-          text: "Earn tokens for consistency, referrals, and health progress",
-        },
-        {
-          emoji: "🔗",
-          title: "Avatar Sync (Coming Soon)",
-          text: "Build your digital health twin — own it, improve it, and benefit from it",
-        },
-      ],
-    },
-    {
-      key: "medi",
-      label: "MediClinIQ",
-      image: strategy,
-      badge: "AI Diagnostics for Real-World Clinics",
-      heading: "MediClinIQ",
-      bullets: [
-        "Saves time — AI processes vast data in seconds",
-        "Improves patient outcomes via integrative, evidence-informed plans",
-        "Supports regulatory compliance, privacy, and trust",
-        "Boosts clinical capacity without hiring more staff",
-      ],
-      features: [
-        {
-          emoji: "🤖",
-          title: "AI Diagnostic Assistant",
-          text: "Pinpoints rare and complex diseases with speed and confidence",
-        },
-        {
-          emoji: "💊",
-          title: "Treatment Protocol Generator",
-          text: "Integrates pharma, natural remedies, and nutrition into actionable plans",
-        },
-        {
-          emoji: "📋",
-          title: "Instant Exportable Reports",
-          text: "Patient-friendly summaries that blend clinical and wellness guidance",
-        },
-        {
-          emoji: "🔗",
-          title: "Enterprise Integration",
-          text: "Scalable access via API for hospitals, insurers, and national systems",
-        },
-        {
-          emoji: "🔒",
-          title: "Access via Token Locking (MEDX)",
-          text: "Payable in fiat or crypto; commercial users gain platform access through MEDX",
-        },
-      ],
-    },
-    {
-      key: "strategic",
-      label: "Strategic Projects",
-      image: hands,
-      badge: "Strategic Integrations, Licensing & Global Access",
-      heading: "Strategic Projects",
-      bullets: [
-        "Access to patent-pending technologies",
-        "Integration into our Avatar data pipeline",
-        "Web3-native options for tracking, rewards, or data contribution",
-        "Flexible, structured licensing via MEDX",
-      ],
-      features: [
-        {
-          emoji: "🏭",
-          title: "Pharma & Biotech",
-          text: "Use Avataris’s AI to optimize drug + natural compound combinations",
-        },
-        {
-          emoji: "🏛️",
-          title: "Government & NGO Collaborations",
-          text: "Deploy localized wellness models, Avatar-based care, or disease-prevention apps",
-        },
-        {
-          emoji: "💼",
-          title: "Digital Health Startups",
-          text: "License Avataris APIs or integrate into M1 Super App for instant scalability",
-        },
-        {
-          emoji: "🔬",
-          title: "Academic & Research Partners",
-          text: "Access to anonymized data pools for training, discovery, and validation",
-        },
-      ],
-    },
-  ];
 
   const cyanSize = isMobile ? 200 : 500;
   const purpleSize = isMobile ? 240 : 800;
@@ -227,7 +54,7 @@ export default function HomePage() {
     borderRadius: "50%",
   };
 
-  const [active, setActive] = useState(tabs[0].key);
+  const [active, setActive] = useState(TABS[0].key);
 
   const panelRefs = useRef<HTMLDivElement[]>([]);
 
@@ -243,14 +70,11 @@ export default function HomePage() {
       className="min-h-screen overflow-x-hidden"
       style={{ backgroundColor: "#03090E" }}
     >
-      <section className="relative min-h-screen flex flex-col justify-center items-center px-4 overflow-x-hidden bg-[#03090E]">
-        {/* header */}
-        <header className="absolute top-6 left-4 right-4 sm:left-10 sm:right-10 p-4 sm:p-6">
-          <div className="flex items-center justify-center sm:justify-start">
-            <Image src={logoavatarise} alt="logo" className="w-24 sm:w-32" />
-          </div>
-        </header>
+      <Header />
 
+      {/* Push content down so it doesn’t sit under the fixed header */}
+      <div className="pt-[72px]" />
+      <section className="relative min-h-screen flex flex-col justify-center items-center px-4 overflow-x-hidden bg-[#03090E]">
         <div
           className="absolute rounded-full border border-gray-500 opacity-10
                w-[300px] h-[300px]    /* mobile */
@@ -334,6 +158,38 @@ export default function HomePage() {
               />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* video */}
+      <section className="py-16 px-4 bg-[#03090E] text-center">
+        <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-6">
+          <span
+            className="text-transparent bg-clip-text"
+            style={{
+              background:
+                "linear-gradient(180deg, #FFFFFF 54.17%, #71AECE 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Be part of Advance Healthcare
+          </span>
+        </h2>
+
+        <div className="mx-auto w-full max-w-3xl rounded-2xl shadow-xl overflow-hidden">
+          <iframe
+            width="100%"
+            height="600"
+            src="https://www.youtube.com/embed/FktyT3BEcik?si=WX3_F7D7_jZWexIs"
+            title="Avataris AI - Advanced Healthcare Presentation"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            // className="rounded-2xl"
+            className="rounded-2xl sm:h-[500px] md:h-[600px]"
+          ></iframe>
         </div>
       </section>
 
@@ -575,10 +431,10 @@ export default function HomePage() {
                   style={{ top: "340px" }}
                 >
                   <h3 className="font-semibold text-white text-sm mb-1">
-                    Personalized treatment plans
+                    Personalized Protocols generated
                   </h3>
                   <p className="text-gray-300 text-xs">
-                    (drugs + natural compounds)
+                    with our Patent pending technology
                   </p>
                 </div>
 
@@ -664,17 +520,17 @@ export default function HomePage() {
               </div>
 
               <div
-                className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
+                className="rounded-2xl p-6 w-[320px] text-left backdrop-blur-sm absolute"
                 style={{
                   backgroundColor: "rgba(7, 19, 29, 0.7)",
                   border: "1px solid rgba(255, 255, 255, 0.1)",
                   top: "-70px",
-                  right: "-150px",
+                  right: "-160px",
                 }}
               >
-                Personalized treatment plans
-                <br />
-                (drugs + natural compounds)
+                Personalized Protocols generated <br /> with our Patent
+                pending technology
+                {/* (drugs + natural compounds) */}
               </div>
 
               <div
@@ -712,7 +568,7 @@ export default function HomePage() {
             Explore the Ecosystem
           </h2>
           <div className="space-y-12 hidden md:block">
-            {tabs.map((tab, i) => (
+            {TABS.map((tab, i) => (
               <div
                 key={tab.key}
                 ref={(el) => {
@@ -804,7 +660,7 @@ export default function HomePage() {
           <section className="block md:hidden py-6 px-2 bg-[#03090E]">
             {/* 1) Horizontal tab list */}
             <div className="overflow-x-auto whitespace-nowrap pb-2 -mx-4 px-4">
-              {tabs.map((tab, i) => (
+              {TABS.map((tab, i) => (
                 <button
                   key={tab.key}
                   onClick={() => handleClick(tab.key, i)}
@@ -829,45 +685,43 @@ export default function HomePage() {
             <div className="overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out">
               <div className="max-w-none">
                 {/* replicate the same grid/content you have for one panel: */}
-                {tabs
-                  .filter((tab) => tab.key === active)
-                  .map((tab) => (
-                    <div key={tab.key} className="space-y-4">
-                      <span className="inline-block px-3 py-1 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#FFFFFF]/15">
-                        {tab.badge}
-                      </span>
-                      <h3 className="text-2xl font-semibold text-white">
-                        {tab.heading}
-                      </h3>
-                      <ul className="list-disc list-inside text-gray-300 space-y-1">
-                        {tab.bullets.map((b, j) => (
-                          <li key={j}>{b}</li>
+                {TABS.filter((tab) => tab.key === active).map((tab) => (
+                  <div key={tab.key} className="space-y-4">
+                    <span className="inline-block px-3 py-1 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#FFFFFF]/15">
+                      {tab.badge}
+                    </span>
+                    <h3 className="text-2xl font-semibold text-white">
+                      {tab.heading}
+                    </h3>
+                    <ul className="list-disc list-inside text-gray-300 space-y-1">
+                      {tab.bullets.map((b, j) => (
+                        <li key={j}>{b}</li>
+                      ))}
+                    </ul>
+                    <Image
+                      src={tab.image}
+                      alt={tab.label}
+                      width={600}
+                      height={300}
+                      className="rounded-2xl w-full h-auto"
+                    />
+                    <div className="border border-[#144354] rounded-2xl p-4">
+                      <ul className="space-y-3">
+                        {tab.features.map((f, k) => (
+                          <li key={k} className="flex items-start">
+                            <span className="text-xl mr-2">{f.emoji}</span>
+                            <div>
+                              <h4 className="font-medium text-white">
+                                {f.title}
+                              </h4>
+                              <p className="text-gray-300">{f.text}</p>
+                            </div>
+                          </li>
                         ))}
                       </ul>
-                      <Image
-                        src={tab.image}
-                        alt={tab.label}
-                        width={600}
-                        height={300}
-                        className="rounded-2xl w-full h-auto"
-                      />
-                      <div className="border border-[#144354] rounded-2xl p-4">
-                        <ul className="space-y-3">
-                          {tab.features.map((f, k) => (
-                            <li key={k} className="flex items-start">
-                              <span className="text-xl mr-2">{f.emoji}</span>
-                              <div>
-                                <h4 className="font-medium text-white">
-                                  {f.title}
-                                </h4>
-                                <p className="text-gray-300">{f.text}</p>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
                     </div>
-                  ))}
+                  </div>
+                ))}
               </div>
             </div>
           </section>
@@ -945,30 +799,32 @@ export default function HomePage() {
             Avataris AI Forward
           </h3>
           <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {team.map((member, idx) => (
+            {TEAM.map((member, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl p-6"
+                className="rounded-2xl overflow-hidden"
                 style={{
                   background:
                     "linear-gradient(107.08deg, #0C1D2A 0.54%, #03090E 99.46%)",
                   border: "1px solid #14435433",
                 }}
               >
-                <div className="w-full h-40  rounded mb-4 overflow-hidden flex items-center justify-center">
+                <div className="relative w-full h-48">
                   <Image
-                    src={NN}
+                    src={member.imageSrc}
                     alt={member.name}
-                    width={150}
-                    height={200}
-                    className="object-cover h-[200px]"
+                    fill
+                    className="object-cover"
                   />
                 </div>
-                <h4 className="text-xl font-semibold mb-1">{member.name}</h4>
-                <p className="text-gray-400 text-sm mb-4">{member.role}</p>
-                <p className="text-gray-300 text-sm leading-relaxed text-left">
-                  {member.desc}
-                </p>
+
+                <div className="px-6 py-4">
+                  <h4 className="text-xl font-semibold mb-1">{member.name}</h4>
+                  <p className="text-gray-400 text-sm mb-4">{member.role}</p>
+                  <p className="text-gray-300 text-sm leading-relaxed text-left">
+                    {member.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -1041,184 +897,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="text-gray-300">
-        {/* Spacer above line */}
-        <div className="pt-8" />
-
-        {/* Centered purple line with responsive width */}
-        <div className="flex justify-center px-4">
-          <div
-            className="h-px bg-[#534896]"
-            style={{
-              width: "min(90%, 1000px)",
-            }}
-          />
-        </div>
-
-        {/* Disclaimer toggle, centered */}
-        <div className="flex justify-center px-4 py-6">
-          <button
-            onClick={() => setIsOpen((o) => !o)}
-            className="flex items-center space-x-2 text-sm md:text-base hover:text-white focus:outline-none transition-colors duration-200"
-          >
-            <span className="underline">Disclaimer</span>
-            <span
-              className={`text-xl leading-none transition-transform duration-300 ${
-                isOpen ? "rotate-180" : "rotate-0"
-              }`}
-            >
-              {isOpen ? "−" : "+"}
-            </span>
-          </button>
-        </div>
-
-        {/* Expandable disclaimer content with smooth animation */}
-        <div
-          className={`overflow-hidden transition-all duration-500 ease-in-out ${
-            isOpen ? "max-h-[1200px] opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="max-w-6xl mx-auto px-4 pb-8">
-            <div className="space-y-4 text-xs sm:text-sm leading-relaxed">
-              <p>
-                This presentation is provided for informational and discussion
-                purposes only. It is not intended to constitute, and does not
-                constitute, an offer to sell or the solicitation of an offer to
-                buy any securities, financial instruments, or digital assets in
-                any jurisdiction. No portion of this presentation shall be
-                relied upon in connection with any investment decision.
-              </p>
-              <p>
-                Avataris AI (a brand operated by Avataris Health Innovations
-                Inc., a Canadian corporation) does not create, issue, or sell
-                the MEDX token. The MEDX token is created and issued by a
-                separate and independent entity, Medix Launch Partners, for use
-                exclusively within the Avataris Ecosystem as a utility token.
-                MEDX is not intended to function as an investment vehicle or
-                store of value and is not offered as a security or financial
-                instrument in any jurisdiction.
-              </p>
-              <p>
-                All descriptions of token utility are illustrative of current
-                and planned platform functionality only.
-              </p>
-              <p>
-                The availability of such features may vary based on region,
-                regulation, user eligibility, and ongoing platform development.
-                Use of MEDX is subject to applicable terms of service and local
-                regulations.
-              </p>
-              <p>
-                This presentation may reference digital health, AI-powered
-                diagnostics, and health-related use cases. Nothing herein should
-                be construed as medical advice.
-              </p>
-              <p>
-                All medical use cases are subject to local regulatory approval
-                and platform compliance with applicable laws, including but not
-                limited to HIPAA, PIPEDA, GDPR, and equivalent international
-                standards for data protection and privacy. Past performance,
-                product roadmaps, or adoption forecasts included in this
-                presentation are not guarantees of future results. All
-                statements herein are subject to change without notice.
-              </p>
-              <p className="font-semibold pt-2">
-                DO NOT DISTRIBUTE WITHOUT EXPRESS WRITTEN CONSENT
-                <br />
-                Confidential © Avataris Health Innovations Inc. 2025. All Rights
-                Reserved.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom row: email, links, and logo block */}
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          {/* Mobile layout (stacked) */}
-          <div className="block md:hidden space-y-4">
-            {/* Top row: email and links */}
-            <div className="flex flex-col sm:flex-row justify-between items-start space-y-2 sm:space-y-0">
-              <div className="text-xs">info@avatarisai.com</div>
-              <div className="flex space-x-4 text-xs">
-                <Link
-                  href="/privacy"
-                  className="hover:text-white transition-colors"
-                >
-                  Privacy Policy
-                </Link>
-                <Link
-                  href="/terms"
-                  className="hover:text-white transition-colors"
-                >
-                  Terms of Service
-                </Link>
-              </div>
-            </div>
-
-            {/* Bottom row: logo and info */}
-            <div className="flex justify-between items-end">
-              <div className="flex items-center space-x-2">
-                <Image
-                  src={logoavatarise}
-                  alt="AvatarisAI logo"
-                  width={80}
-                  height={80}
-                />
-              </div>
-              <div className="text-right space-y-1">
-                <div className="text-xs text-gray-400">
-                  Your Health. Your Data.
-                  <br />
-                  Your Avatar.
-                </div>
-                <div className="text-xs text-gray-400">© 2025 — Copyright</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Desktop layout */}
-          <div className="hidden md:flex justify-between items-end">
-            {/* Left: contact email and links */}
-            <div className="flex flex-col space-y-2">
-              <div className="text-sm">info@avatarisai.com</div>
-              <div className="flex space-x-6 text-sm">
-                <Link
-                  href="/privacy"
-                  className="hover:text-white transition-colors"
-                >
-                  Privacy Policy
-                </Link>
-                <Link
-                  href="/terms"
-                  className="hover:text-white transition-colors"
-                >
-                  Terms of Service
-                </Link>
-              </div>
-            </div>
-
-            {/* Right: logo, name, slogan, copyright */}
-            <div className="text-right">
-              <div className="flex items-center justify-end space-x-3 mb-2">
-                <Image
-                  src={logoavatarise}
-                  alt="AvatarisAI logo"
-                  width={120}
-                  height={120}
-                />
-              </div>
-              <div className="text-xs text-gray-400 space-y-1">
-                <div>
-                  Your Health. Your Data.
-                  <br />
-                  Your Avatar.
-                </div>
-                <div>© 2025 — Copyright</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
