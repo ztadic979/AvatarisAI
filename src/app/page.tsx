@@ -177,13 +177,20 @@ export default function HomePage() {
           </span>
         </h2>
 
-        <video
-          controls
-          className="mx-auto w-full max-w-3xl rounded-2xl shadow-xl"
-        >
-          <source src="/videopresentation.mp4" type="video/mp4" />
-          Your browser doesn’t support HTML5 video.
-        </video>
+        <div className="mx-auto w-full max-w-3xl rounded-2xl shadow-xl overflow-hidden">
+          <iframe
+            width="100%"
+            height="600"
+            src="https://www.youtube.com/embed/FktyT3BEcik?si=WX3_F7D7_jZWexIs"
+            title="Avataris AI - Advanced Healthcare Presentation"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            // className="rounded-2xl"
+            className="rounded-2xl sm:h-[500px] md:h-[600px]"
+          ></iframe>
+        </div>
       </section>
 
       {/* Mission Section */}
@@ -424,10 +431,10 @@ export default function HomePage() {
                   style={{ top: "340px" }}
                 >
                   <h3 className="font-semibold text-white text-sm mb-1">
-                    Personalized treatment plans
+                    Personalized Protocols generated
                   </h3>
                   <p className="text-gray-300 text-xs">
-                    (drugs + natural compounds)
+                    with our Patent pending technology
                   </p>
                 </div>
 
@@ -513,17 +520,17 @@ export default function HomePage() {
               </div>
 
               <div
-                className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
+                className="rounded-2xl p-6 w-[320px] text-left backdrop-blur-sm absolute"
                 style={{
                   backgroundColor: "rgba(7, 19, 29, 0.7)",
                   border: "1px solid rgba(255, 255, 255, 0.1)",
                   top: "-70px",
-                  right: "-150px",
+                  right: "-160px",
                 }}
               >
-                Personalized treatment plans
-                <br />
-                (drugs + natural compounds)
+                Personalized Protocols generated <br /> with our Patent
+                pending technology
+                {/* (drugs + natural compounds) */}
               </div>
 
               <div
