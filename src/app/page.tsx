@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 import Image from "next/image";
 import skeleton from "../../public/skeleton.png";
@@ -10,18 +11,21 @@ import ailabs from "../../public/ailabs.png";
 import phone from "../../public/phone.png";
 import DNK from "../../public/DNK.png";
 import earth from "../../public/earth.png";
-
-import React, { useRef, useState } from "react";
-
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { Easing, motion, Transition, useInView, Variants } from "framer-motion";
 
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { TABS, TEAM } from "./mockData/mockData";
 import { useIsMobile } from "./hooks/useIsMobile";
+import { StackingCardsSection } from "./components/StackingCardsSection";
 
 export default function HomePage() {
   const isMobile = useIsMobile(768);
+  const ref = useRef(null);
+  const refTwo = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInViewTwo = useInView(refTwo, { once: true, amount: 0.2 });
 
   const cyanSize = isMobile ? 200 : 500;
   const purpleSize = isMobile ? 240 : 800;
@@ -54,17 +58,189 @@ export default function HomePage() {
     borderRadius: "50%",
   };
 
-  const [active, setActive] = useState(TABS[0].key);
+  // const [active, setActive] = useState(TABS[0].key);
+  const [activeTab, setActiveTab] = useState(0);
 
-  const panelRefs = useRef<HTMLDivElement[]>([]);
+  const sectionRef = useRef(null);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
 
-  const handleClick = (key: string, idx: number) => {
-    setActive(key);
-    // only scroll on desktop
-    if (window.innerWidth >= 768) {
-      panelRefs.current[idx]?.scrollIntoView({ behavior: "smooth" });
-    }
+      const section = sectionRef.current;
+      // @ts-expect-error not lib type
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Check if section is in view
+      if (rect.bottom < 0 || rect.top > windowHeight) {
+        return;
+      }
+
+      // Calculate scroll progress through the section
+      const sectionHeight = rect.height;
+      const scrollProgress = Math.max(
+        0,
+        Math.min(1, (windowHeight - rect.top) / sectionHeight)
+      );
+
+      // Map to tab index
+      const tabIndex = Math.floor(scrollProgress * TABS.length);
+      const clampedIndex = Math.max(0, Math.min(tabIndex, TABS.length - 1));
+
+      setActiveTab(clampedIndex);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const easeOut: Easing = "easeOut";
+  const cubicBezier: Easing = [0.25, 0.1, 0.25, 1];
+
+  const textTransition: Transition = {
+    duration: 0.8,
+    ease: easeOut,
+    staggerChildren: 0.2,
   };
+
+  const textVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: textTransition,
+    },
+  };
+
+  const childTransition: Transition = {
+    duration: 0.6,
+    ease: cubicBezier,
+  };
+
+  const childVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: childTransition,
+    },
+  };
+
+  const containerTransition: Transition = {
+    duration: 0.8,
+    ease: easeOut,
+    staggerChildren: 0.3,
+  };
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0, y: 100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: containerTransition,
+    },
+  };
+
+  const imageTransition: Transition = {
+    duration: 0.8,
+    ease: easeOut,
+  };
+
+  const imageVariants: Variants = {
+    hidden: { opacity: 0, y: 60, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: imageTransition,
+    },
+  };
+
+  const cardBaseTransition = (delay: number): Transition => ({
+    duration: 0.8,
+    ease: easeOut,
+    delay,
+  });
+
+  const leftCardVariants: Variants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: cardBaseTransition(i * 0.2),
+    }),
+  };
+
+  const rightCardVariants: Variants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: cardBaseTransition(i * 0.2),
+    }),
+  };
+
+  const skeletonTransition: Transition = {
+    duration: 1,
+    ease: easeOut,
+    delay: 0.3,
+  };
+
+  const skeletonVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: skeletonTransition,
+    },
+  };
+
+  const titleTransition: Transition = {
+    duration: 0.6,
+    ease: easeOut,
+  };
+
+  const titleVariants: Variants = {
+    hidden: { opacity: 0, y: -30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: titleTransition,
+    },
+  };
+
+  const mobileCardTransition = (delay: number): Transition => ({
+    duration: 0.6,
+    ease: easeOut,
+    delay,
+  });
+
+  const mobileCardVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: mobileCardTransition(i * 0.1),
+    }),
+  };
+
+  const mobileSkeletonTransition: Transition = {
+    duration: 0.8,
+    ease: easeOut,
+    delay: 0.2,
+  };
+
+  const mobileSkeletonVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: mobileSkeletonTransition,
+    },
+  };
+
   return (
     <div
       className="min-h-screen overflow-x-hidden"
@@ -95,26 +271,66 @@ export default function HomePage() {
                md:w-[300px] md:h-[300px]"
         />
 
-        <div
-          className="absolute rounded-full bg-[#534896] filter blur-[120px] opacity-50
-               w-90 h-90
-               sm:w-64 sm:h-64
-               md:w-[850px] md:h-[850px]"
+        {/* Animated blur circles */}
+        <motion.div
+          className="absolute rounded-full"
+          style={{
+            width: isMobile ? "200px" : "850px", // Increased mobile size
+            height: isMobile ? "200px" : "850px",
+            backgroundColor: "#534896",
+            filter: isMobile ? "blur(60px)" : "blur(120px)", // Reduced mobile blur
+            opacity: 0.7, // Increased opacity
+            zIndex: 1, // Ensure it's visible
+          }}
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.5, 0.7, 0.5],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
         />
-        <div
-          className="absolute rounded-full bg-[#1BD1DB] filter blur-[90px] opacity-50
-               w-40 h-40
-               sm:w-32 sm:h-32
-               md:w-[350px] md:h-[350px]"
+        <motion.div
+          className="absolute rounded-full"
+          style={{
+            width: isMobile ? "120px" : "350px",
+            height: isMobile ? "120px" : "350px",
+            backgroundColor: "#1BD1DB",
+            filter: isMobile ? "blur(30px)" : "blur(90px)",
+            opacity: isMobile ? 0.8 : 0.5,
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1.5, // Offset the animation
+          }}
         />
 
-        {/* main content */}
-        <div className="relative text-center max-w-xl sm:max-w-2xl mx-auto px-4 sm:px-6 z-10 animate-fade-in-up">
-          <span className="inline-block px-4 py-1 sm:px-6 sm:py-2 bg-[#112A3B4D] backdrop-blur-sm rounded-full text-white/80 text-xs sm:text-sm border border-white/20 mb-4">
+        {/* main content with fade-in animation */}
+        <motion.div
+          className="relative text-center max-w-xl sm:max-w-2xl mx-auto px-4 sm:px-6 z-10"
+          initial="hidden"
+          animate="visible"
+          variants={textVariants}
+        >
+          <motion.span
+            className="inline-block px-4 py-1 sm:px-6 sm:py-2 bg-[#112A3B4D] backdrop-blur-sm rounded-full text-white/80 text-xs sm:text-sm border border-white/20 mb-4"
+            variants={childVariants}
+          >
             A New Era of Intelligence in Medicine
-          </span>
+          </motion.span>
 
-          <h1 className="text-3xl sm:text-5xl md:text-5xl font-semibold text-white mb-3 leading-tight">
+          <motion.h1
+            className="text-3xl sm:text-5xl md:text-5xl font-semibold text-white mb-3 leading-tight"
+            variants={childVariants}
+          >
             Your Health. Your Data.
             <br />
             <span
@@ -128,25 +344,44 @@ export default function HomePage() {
             >
               Your Avatar.
             </span>
-          </h1>
+          </motion.h1>
 
-          <p className="text-white/60 text-base sm:text-lg mb-8 max-w-lg mx-auto">
+          <motion.p
+            className="text-white/60 text-base sm:text-lg mb-8 max-w-lg mx-auto"
+            variants={childVariants}
+          >
             Innovating tech for your personal wellbeing
-          </p>
+          </motion.p>
 
-          <a href="https://www.linkedin.com/company/avatarisai" target="_blank">
-            <button className="bg-white cursor-pointer text-gray-900 px-6 py-2 sm:px-8 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300">
-              Contact Us
-            </button>
-          </a>
-        </div>
+          <motion.div variants={childVariants}>
+            <a
+              href="https://www.linkedin.com/company/avatarisai"
+              target="_blank"
+            >
+              <button className="bg-white cursor-pointer text-gray-900 px-6 py-2 sm:px-8 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300">
+                Contact Us
+              </button>
+            </a>
+          </motion.div>
+        </motion.div>
 
-        {/* trust logos */}
-        <div className="absolute bottom-4 left-0 right-0 px-4">
-          <p className="text-center text-white/80 text-xs sm:text-sm mb-10">
+        {/* trust logos with fade-in animation */}
+        <motion.div
+          className="absolute bottom-4 left-0 right-0 px-4"
+          initial="hidden"
+          animate="visible"
+          variants={textVariants}
+        >
+          <motion.p
+            className="text-center text-white/80 text-xs sm:text-sm mb-10"
+            variants={childVariants}
+          >
             Trusted by leading biotech companies worldwide
-          </p>
-          <div className="flex w-[70%] m-auto flex-wrap justify-center sm:justify-between items-center gap-4 sm:gap-8 opacity-60">
+          </motion.p>
+          <motion.div
+            className="flex w-[70%] m-auto flex-wrap justify-center sm:justify-between items-center gap-4 sm:gap-8 opacity-60"
+            variants={childVariants}
+          >
             {[photoshelter, kopi, flatfile, ailabs, sales].map((Logo, i) => (
               <Image
                 key={i}
@@ -157,8 +392,8 @@ export default function HomePage() {
                 className="object-contain"
               />
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* video */}
@@ -193,17 +428,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Mission Section */}
-
       <section
+        ref={ref}
         className="relative hidden sm:block py-16 px-4 sm:px-6 lg:px-8 z-5 mt-10"
         style={{ backgroundColor: "#03090E", height: "600px" }}
       >
-        <div
+        <motion.div
           className="max-w-6xl mx-auto rounded-2xl h-[400px] p-8 flex flex-col md:flex-row items-center relative"
           style={{ backgroundColor: "#011D35" }}
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
         >
-          <div className="md:w-1/2 text-white">
+          <motion.div className="md:w-1/2 text-white" variants={textVariants}>
             <h2 className="text-2xl md:text-4xl lg:text-[35px] font-normal leading-tight">
               Our mission is to bridge the gap between innovation and
               accessibility — using artificial intelligence, blockchain, and{" "}
@@ -219,9 +456,12 @@ export default function HomePage() {
                 biology to personalize health and wellness at scale.
               </span>
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="md:w-1/2 relative mt-8 md:mt-0">
+          <motion.div
+            className="md:w-1/2 relative mt-8 md:mt-0"
+            variants={imageVariants}
+          >
             <div className="absolute right-[-20px] md:right-[-95px] -top-32 md:-top-96 lg:-top-[19rem]">
               <Image
                 src={AIModel}
@@ -232,8 +472,8 @@ export default function HomePage() {
                 priority
               />
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* mobile-only */}
@@ -331,8 +571,7 @@ export default function HomePage() {
       </section>
 
       {/* Our Solution Section */}
-
-      <section className="relative py-16 px-4 sm:px-6 lg:px-8">
+      <section ref={refTwo} className="relative py-16 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 flex justify-center items-center">
           <div
             className="rounded-full hidden sm:flex relative z-15"
@@ -356,377 +595,191 @@ export default function HomePage() {
         </div>
 
         <div className="relative max-w-6xl mx-auto text-center text-white">
-          <h2
+          <motion.h2
             className="text-4xl font-normal mb-12"
             style={{
               background: "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
+            variants={titleVariants}
+            initial="hidden"
+            animate={isInViewTwo ? "visible" : "hidden"}
           >
             Our Solution
-          </h2>
+          </motion.h2>
 
           {/* Mobile view */}
           <div className="block md:hidden relative min-h-[550px]">
             {/* Skeleton image */}
             <div className="flex justify-center">
-              <Image src={skeleton} alt="Skeleton" width={220} height={440} />
+              <motion.div
+                variants={mobileSkeletonVariants}
+                initial="hidden"
+                animate={isInViewTwo ? "visible" : "hidden"}
+              >
+                <Image src={skeleton} alt="Skeleton" width={220} height={440} />
+              </motion.div>
 
               {/* Cards overlay */}
               <div className="absolute inset-0">
-                {/* 1. Head level */}
-                <div
-                  className="absolute opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
-                  style={{ top: "20px" }}
-                >
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    AI-driven Avatar that evolves
-                  </h3>
-                  <p className="text-gray-300 text-xs">
-                    with your health inputs
-                  </p>
-                </div>
-
-                {/* 2. Upper torso */}
-                <div
-                  className="absolute  opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
-                  style={{ top: "100px" }}
-                >
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    Tailored wellness plans and
-                  </h3>
-                  <p className="text-gray-300 text-xs">
-                    adaptive recommendations
-                  </p>
-                </div>
-
-                {/* 3. Mid torso */}
-                <div
-                  className="absolute  opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
-                  style={{ top: "180px" }}
-                >
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    Full ownership and optional
-                  </h3>
-                  <p className="text-gray-300 text-xs">
-                    monetization of health data
-                  </p>
-                </div>
-
-                {/* 4. Lower torso */}
-                <div
-                  className="absolute opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
-                  style={{ top: "260px" }}
-                >
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    AI diagnostic assistant
-                  </h3>
-                  <p className="text-gray-300 text-xs">(MediClinIQ)</p>
-                </div>
-
-                {/* 5. Upper legs */}
-                <div
-                  className="absolute opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
-                  style={{ top: "340px" }}
-                >
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    Personalized Protocols generated
-                  </h3>
-                  <p className="text-gray-300 text-xs">
-                    with our Patent pending technology
-                  </p>
-                </div>
-
-                {/* 6. Lower legs */}
-                <div
-                  className="absolute opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
-                  style={{ top: "420px" }}
-                >
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    Exportable plans with
-                  </h3>
-                  <p className="text-gray-300 text-xs">
-                    lifestyle, nutrition, and supplement guidance
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* <div className="relative  flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0"> */}
-          <div className="hidden sm:flex relative flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0">
-            <div className="absolute left-0 md:left-1/4 transform md:-translate-x-full md:-translate-x-20 z-10">
-              <div
-                className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
-                style={{
-                  backgroundColor: "rgba(7, 19, 29, 0.7)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  top: "-260px",
-                  left: "-120px",
-                }}
-              >
-                AI-driven Avatar that evolves
-                <br />
-                with your health inputs
-              </div>
-
-              <div
-                className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
-                style={{
-                  backgroundColor: "rgba(7, 19, 29, 0.7)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  top: "-70px",
-                  left: "-150px",
-                }}
-              >
-                Tailored wellness plans and
-                <br />
-                adaptive recommendations
-              </div>
-
-              <div
-                className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
-                style={{
-                  backgroundColor: "rgba(7, 19, 29, 0.7)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  top: "120px",
-                  left: "-90px",
-                }}
-              >
-                Full ownership and optional
-                <br />
-                monetization of health data
-              </div>
-            </div>
-
-            <div className="relative z-20">
-              <Image src={skeleton} alt="Skeleton" width={300} height={600} />
-            </div>
-
-            <div className="absolute right-0 md:right-1/4 transform md:translate-x-full md:translate-x-20 z-10">
-              <div
-                className="rounded-2xl w-[300px] p-6  text-left backdrop-blur-sm absolute"
-                style={{
-                  backgroundColor: "rgba(7, 19, 29, 0.7)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  top: "-260px",
-                  right: "-115px",
-                }}
-              >
-                AI diagnostic assistant
-                <br />
-                (MediClinIQ)
-              </div>
-
-              <div
-                className="rounded-2xl p-6 w-[320px] text-left backdrop-blur-sm absolute"
-                style={{
-                  backgroundColor: "rgba(7, 19, 29, 0.7)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  top: "-70px",
-                  right: "-160px",
-                }}
-              >
-                Personalized Protocols generated <br /> with our Patent
-                pending technology
-                {/* (drugs + natural compounds) */}
-              </div>
-
-              <div
-                className="rounded-2xl p-6 w-[320px] text-left backdrop-blur-sm absolute"
-                style={{
-                  backgroundColor: "rgba(7, 19, 29, 0.7)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  top: "120px",
-                  right: "-110px",
-                }}
-              >
-                Exportable plans with lifestyle,
-                <br />
-                nutrition, and supplement guidance
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        className="py-1 sm:py-16 px-6 lg:px-8 z-5"
-        style={{ scrollSnapType: "y mandatory" }}
-        data-tabs-section
-      >
-        <div className="max-w-6xl mx-auto text-white">
-          <h2
-            className="text-4xl font-normal mb-10"
-            style={{
-              background: "linear-gradient(180deg, #FFFFFF 20%, #71AECE 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Explore the Ecosystem
-          </h2>
-          <div className="space-y-12 hidden md:block">
-            {TABS.map((tab, i) => (
-              <div
-                key={tab.key}
-                ref={(el) => {
-                  if (el) panelRefs.current[i] = el;
-                }}
-                className="flex mb-1"
-              >
-                {/* Left border - dynamic height based on active state */}
-                <div
-                  className={`border-l-2 transition-colors duration-500 ${
-                    active === tab.key ? "border-[#534896]" : "border-gray-700"
-                  }`}
-                />
-                <div className="ml-6 w-full">
-                  <button
-                    onClick={() => handleClick(tab.key, i)}
-                    className={`text-2xl font-semibold mb-4 block transition-colors duration-200 cursor-pointer ${
-                      active === tab.key
-                        ? "text-white"
-                        : "text-gray-500 hover:text-white"
-                    }`}
+                {/* Mobile cards with staggered bottom entrance */}
+                {[
+                  {
+                    top: "20px",
+                    title: "AI-driven Avatar that evolves",
+                    subtitle: "with your health inputs",
+                  },
+                  {
+                    top: "100px",
+                    title: "Tailored wellness plans and",
+                    subtitle: "adaptive recommendations",
+                  },
+                  {
+                    top: "180px",
+                    title: "Full ownership and optional",
+                    subtitle: "monetization of health data",
+                  },
+                  {
+                    top: "260px",
+                    title: "AI diagnostic assistant",
+                    subtitle: "(MediClinIQ)",
+                  },
+                  {
+                    top: "340px",
+                    title: "Personalized Protocols generated",
+                    subtitle: "with our Patent pending technology",
+                  },
+                  {
+                    top: "420px",
+                    title: "Exportable plans with",
+                    subtitle: "lifestyle, nutrition, and supplement guidance",
+                  },
+                ].map((card, index) => (
+                  <motion.div
+                    key={index}
+                    className="absolute opacity-85 inset-x-0 mx-auto w-[90%] max-w-sm backdrop-blur-sm bg-[#07131D]/70 border border-white/10 rounded-2xl p-3"
+                    style={{ top: card.top }}
+                    variants={mobileCardVariants}
+                    initial="hidden"
+                    animate={isInViewTwo ? "visible" : "hidden"}
+                    custom={index}
                   >
-                    {active !== tab.key ? tab.label : ""}
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {active === tab.key && (
-                      <motion.div
-                        key={tab.key} // ← unique per tab!
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.6, ease: "easeInOut" }}
-                        className="overflow-hidden "
-                      >
-                        <div className="pl-2">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {/* Left Column */}
-                            <div>
-                              <span className="inline-block px-4 py-2 mb-4 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#FFFFFF]/15">
-                                {tab.badge}
-                              </span>
-                              <h3 className="text-3xl font-semibold mb-4">
-                                {tab.heading}
-                              </h3>
-                              <ul className="list-disc list-inside text-gray-300 space-y-2 mb-6">
-                                {tab.bullets.map((b, j) => (
-                                  <li key={j}>{b}</li>
-                                ))}
-                              </ul>
-                              <Image
-                                src={tab.image}
-                                alt={tab.label}
-                                width={600}
-                                height={300}
-                                className="rounded-2xl w-full h-auto"
-                              />
-                            </div>
-
-                            {/* Right Column */}
-                            <div className="border border-[#144354] rounded-2xl p-6">
-                              <ul className="space-y-4">
-                                {tab.features.map((f, k) => (
-                                  <li key={k} className="flex items-start">
-                                    <span className="text-2xl mr-3">
-                                      {f.emoji}
-                                    </span>
-                                    <div>
-                                      <h4 className="font-medium text-white">
-                                        {f.title}
-                                      </h4>
-                                      <p className="text-gray-300">{f.text}</p>
-                                    </div>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                    {/* </div> */}
-                  </AnimatePresence>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <section className="block md:hidden py-6 px-2 bg-[#03090E]">
-            {/* 1) Horizontal tab list */}
-            <div className="overflow-x-auto whitespace-nowrap pb-2 -mx-4 px-4">
-              {TABS.map((tab, i) => (
-                <button
-                  key={tab.key}
-                  onClick={() => handleClick(tab.key, i)}
-                  className={`
-          inline-block px-3 pb-1 mr-1
-          text-sm font-medium
-          border-b-2
-          mb-5
-          ${
-            active === tab.key
-              ? "border-[#534896] text-white"
-              : "border-gray-700 text-gray-500 hover:text-white hover:border-gray-500"
-          }
-        `}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
-            {/* 2) Active tab content */}
-            <div className="overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out">
-              <div className="max-w-none">
-                {/* replicate the same grid/content you have for one panel: */}
-                {TABS.filter((tab) => tab.key === active).map((tab) => (
-                  <div key={tab.key} className="space-y-4">
-                    <span className="inline-block px-3 py-1 bg-[#112A3B] backdrop-blur-sm rounded-full text-white/80 border border-[#FFFFFF]/15">
-                      {tab.badge}
-                    </span>
-                    <h3 className="text-2xl font-semibold text-white">
-                      {tab.heading}
+                    <h3 className="font-semibold text-white text-sm mb-1">
+                      {card.title}
                     </h3>
-                    <ul className="list-disc list-inside text-gray-300 space-y-1">
-                      {tab.bullets.map((b, j) => (
-                        <li key={j}>{b}</li>
-                      ))}
-                    </ul>
-                    <Image
-                      src={tab.image}
-                      alt={tab.label}
-                      width={600}
-                      height={300}
-                      className="rounded-2xl w-full h-auto"
-                    />
-                    <div className="border border-[#144354] rounded-2xl p-4">
-                      <ul className="space-y-3">
-                        {tab.features.map((f, k) => (
-                          <li key={k} className="flex items-start">
-                            <span className="text-xl mr-2">{f.emoji}</span>
-                            <div>
-                              <h4 className="font-medium text-white">
-                                {f.title}
-                              </h4>
-                              <p className="text-gray-300">{f.text}</p>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+                    <p className="text-gray-300 text-xs">{card.subtitle}</p>
+                  </motion.div>
                 ))}
               </div>
             </div>
-          </section>
+          </div>
+
+          {/* Desktop view */}
+          <div className="hidden sm:flex relative flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0">
+            {/* Left side cards */}
+            <div className="absolute left-0 md:left-1/4 transform md:-translate-x-full md:-translate-x-20 z-10">
+              {[
+                {
+                  top: "-260px",
+                  left: "-120px",
+                  text: "AI-driven Avatar that evolves\nwith your health inputs",
+                },
+                {
+                  top: "-70px",
+                  left: "-150px",
+                  text: "Tailored wellness plans and\nadaptive recommendations",
+                },
+                {
+                  top: "120px",
+                  left: "-90px",
+                  text: "Full ownership and optional\nmonetization of health data",
+                },
+              ].map((card, index) => (
+                <motion.div
+                  key={`left-${index}`}
+                  className="rounded-2xl p-6 w-[300px] text-left backdrop-blur-sm absolute"
+                  style={{
+                    backgroundColor: "rgba(7, 19, 29, 0.7)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    top: card.top,
+                    left: card.left,
+                  }}
+                  variants={leftCardVariants}
+                  initial="hidden"
+                  animate={isInViewTwo ? "visible" : "hidden"}
+                  custom={index}
+                >
+                  {card.text.split("\n").map((line, i) => (
+                    <span key={i}>
+                      {line}
+                      {i === 0 && <br />}
+                    </span>
+                  ))}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Center skeleton */}
+            <motion.div
+              className="relative z-20"
+              variants={skeletonVariants}
+              initial="hidden"
+              animate={isInViewTwo ? "visible" : "hidden"}
+            >
+              <Image src={skeleton} alt="Skeleton" width={300} height={600} />
+            </motion.div>
+
+            {/* Right side cards */}
+            <div className="absolute right-0 md:right-1/4 transform md:translate-x-full md:translate-x-20 z-10">
+              {[
+                {
+                  top: "-260px",
+                  right: "-115px",
+                  text: "AI diagnostic assistant\n(MediClinIQ)",
+                  width: "w-[300px]",
+                },
+                {
+                  top: "-70px",
+                  right: "-160px",
+                  text: "Personalized Protocols generated\nwith our Patent pending technology",
+                  width: "w-[320px]",
+                },
+                {
+                  top: "120px",
+                  right: "-110px",
+                  text: "Exportable plans with lifestyle,\nnutrition, and supplement guidance",
+                  width: "w-[320px]",
+                },
+              ].map((card, index) => (
+                <motion.div
+                  key={`right-${index}`}
+                  className={`rounded-2xl p-6 ${card.width} text-left backdrop-blur-sm absolute`}
+                  style={{
+                    backgroundColor: "rgba(7, 19, 29, 0.7)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    top: card.top,
+                    right: card.right,
+                  }}
+                  variants={rightCardVariants}
+                  initial="hidden"
+                  animate={isInViewTwo ? "visible" : "hidden"}
+                  custom={index}
+                >
+                  {card.text.split("\n").map((line, i) => (
+                    <span key={i}>
+                      {line}
+                      {i === 0 && <br />}
+                    </span>
+                  ))}
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
+
+      <StackingCardsSection />
 
       <section className="relative overflow-hidden py-24 px-4 z-10">
         {/* ──────────────── Single DNA Background ──────────────── */}
