@@ -50,7 +50,7 @@ export const TEAM = [
 
 export const TABS = [
   {
-    key: "nutri",
+    key: "nutrisync",
     label: "NutriSync",
     badge: "The AI-Driven Wellness App for the World",
     heading: "NutriSync",
@@ -95,7 +95,7 @@ export const TABS = [
     ],
   },
   {
-    key: "medi",
+    key: "medicliniq",
     label: "MediClinIQ",
     image: strategy,
     badge: "AI Diagnostics for Real-World Clinics",
