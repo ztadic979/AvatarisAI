@@ -90,6 +90,53 @@ export default function Footer() {
               presentation are not guarantees of future results. All statements
               herein are subject to change without notice.
             </p>
+
+            <p className="font-semibold pt-2">MediClinIQ by Avataris AI</p>
+            <p>
+              <span className="font-semibold"> Not Medical Advice:</span> The
+              information provided on this website about MediClinIQ is for
+              educational and informational purposes only. It is not intended as
+              medical advice, diagnosis, or treatment, and does not create a
+              doctor-patient relationship.
+            </p>
+            <p>
+              <span className="font-semibold">Research Use Only:</span>{" "}
+              MediClinIQ is intended strictly for research and development
+              purposes. They are not clinical-grade tools and must not be used
+              to inform real-world patient care decisions without formal
+              regulatory clearance and validation.
+            </p>
+            <p>
+              <span className="font-semibold">Not FDA-Approved:</span>{" "}
+              MediClinIQ has not been reviewed, approved, or cleared by the U.S.
+              Food and Drug Administration (FDA), the European Medicines Agency
+              (EMA), or any equivalent regulatory authority in other
+              jurisdictions for clinical use.
+            </p>
+            <p>
+              <span className="font-semibold">
+                Consult Healthcare Professionals:
+              </span>{" "}
+              Always consult with a licensed and qualified healthcare
+              professional before making any medical decision. Do not rely
+              solely on AI outputs for diagnosis, treatment, or medical
+              guidance.
+            </p>
+            <p>
+              <span className="font-semibold">Use at Your Own Risk:</span>
+              Users assume full responsibility for any application of
+              MediClinIQ. Avataris AI and its affiliates disclaim all liability
+              for outcomes or decisions made based on model outputs, whether
+              directly or indirectly.
+            </p>
+            <p>
+              <span className="font-semibold">Limitation of Liability:</span> To
+              the fullest extent permitted by applicable law, Avataris AI, its
+              developers, affiliates, and licensors disclaim any and all
+              liability for damages—direct, indirect, incidental, or
+              consequential—arising from the use or misuse of this website or
+              MediClinIQ.
+            </p>
             <p className="font-semibold pt-2">
               DO NOT DISTRIBUTE WITHOUT EXPRESS WRITTEN CONSENT
               <br />
