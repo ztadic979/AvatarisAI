@@ -799,7 +799,7 @@ export default function HomePage() {
         </div>
 
         {/* ──────────────── Your Main Content ──────────────── */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4">
+        <div className="relative max-w-7xl mx-auto px-4 z-100">
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-4 items-center">
               {/* Left */}
